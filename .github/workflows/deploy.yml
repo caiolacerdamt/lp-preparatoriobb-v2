@@ -1,0 +1,71 @@
+name: Deploy da landing page
+
+'on':
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-preparatoriobb-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Publicar via FTP
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Baixar o codigo
+        uses: actions/checkout@v6
+
+      - name: Preparar somente os arquivos publicos
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -d assets
+          mkdir -p .deploy
+          cp index.html .deploy/
+          cp -R assets .deploy/
+
+      - name: Podar imagens nao referenciadas
+        shell: bash
+        run: |
+          set -euo pipefail
+          node -e '
+            const fs = require("fs"), path = require("path");
+            // Texto de referencia: index.html + todo CSS/JS dentro de assets (seguranca)
+            let text = fs.readFileSync(".deploy/index.html", "utf8");
+            (function walk(d){
+              for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+                const p = path.join(d, e.name);
+                if (e.isDirectory()) walk(p);
+                else if (/\.(css|js)$/i.test(e.name)) text += "\n" + fs.readFileSync(p, "utf8");
+              }
+            })(".deploy/assets");
+            const dir = ".deploy/assets/images";
+            let removed = 0, kept = 0, freed = 0;
+            for (const f of fs.readdirSync(dir)) {
+              if (text.includes(f)) { kept++; continue; }
+              freed += fs.statSync(path.join(dir, f)).size;
+              fs.unlinkSync(path.join(dir, f));
+              removed++;
+            }
+            console.log(`Podadas ${removed} imagens nao referenciadas (${(freed/1024/1024).toFixed(1)} MB); mantidas ${kept}.`);
+          '
+
+      - name: Enviar para a Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./.deploy/
+          server-dir: ./
+          log-level: standard

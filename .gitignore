@@ -1,0 +1,32 @@
+# Arquivos locais e de apoio
+/_backups/
+/docs/
+/preview-server.mjs
+/AGENTS.md
+/CLAUDE.md
+
+# Ferramental local de otimizacao (nunca vai pro deploy)
+/optimize-images.mjs
+/package.json
+/package-lock.json
+/PLANO-OTIMIZACAO-IMAGENS.md
+
+# Imagens de trabalho duplicadas na raiz
+/*.png
+/*.webp
+
+# Artefatos temporarios
+/.deploy/
+/.worktrees/
+/node_modules/
+
+# Arquivos do sistema e do editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+
+# Artefatos de teste do navegador
+/.playwright-mcp/
+/hero-mobile-check.jpeg
