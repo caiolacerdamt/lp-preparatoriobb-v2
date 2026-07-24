@@ -37,3 +37,6 @@ Thumbs.db
 
 # Backup dos originais antes do reencode
 /.imagens-originais/
+
+# Minificador de CSS (avaliado, nao aplicado -- ganho de 1,8 KB na rede)
+/minify-css.mjs
