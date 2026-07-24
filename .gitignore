@@ -34,3 +34,6 @@ Thumbs.db
 # Ferramental e backup do subset de fontes
 /subset-fonts.ps1
 /.fonts-originais/
+
+# Backup dos originais antes do reencode
+/.imagens-originais/
