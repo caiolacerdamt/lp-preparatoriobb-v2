@@ -30,3 +30,7 @@ Thumbs.db
 # Artefatos de teste do navegador
 /.playwright-mcp/
 /hero-mobile-check.jpeg
+
+# Ferramental e backup do subset de fontes
+/subset-fonts.ps1
+/.fonts-originais/
