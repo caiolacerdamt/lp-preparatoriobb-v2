@@ -4169,7 +4169,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				<div class="elementor-element elementor-element-b2c9fc7 elementor-align-justify elementor-widget__width-initial btn elementor-widget elementor-widget-button" data-id="b2c9fc7" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://pay.cakto.com.br/hwtq3kx">
+					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://pay.hotmart.com/H106868076T?checkoutMode=10">
 						<span class="elementor-button-content-wrapper">
 									<span class="elementor-button-text">QUERO COMEÇAR MINHA PREPARAÇÃO</span>
 					</span>
@@ -4442,7 +4442,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				<div class="elementor-element elementor-element-026dfab elementor-align-justify elementor-widget__width-initial btn elementor-widget elementor-widget-button" data-id="026dfab" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://pay.cakto.com.br/hwtq3kx">
+					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://pay.hotmart.com/H106868076T?checkoutMode=10">
 						<span class="elementor-button-content-wrapper">
 									<span class="elementor-button-text">QUERO COMEÇAR MINHA PREPARAÇÃO</span>
 					</span>
@@ -4576,7 +4576,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				<div role="region" aria-labelledby="e-n-accordion-item-1875" class="elementor-element elementor-element-99e68af e-con-full e-flex e-con e-child" data-id="99e68af" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-1ee4e2e elementor-widget elementor-widget-text-editor" data-id="1ee4e2e" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p>Sim. O pagamento é processado no ambiente seguro do checkout Cakto.</p>								</div>
+									<p>Sim. O pagamento é processado no ambiente seguro do checkout Hotmart.</p>								</div>
 				</div>
 				</div>
 					</details>
@@ -4704,22 +4704,14 @@ var ElementorProFrontendConfig = {"ajaxurl":"wp-admin\/admin-ajax.php","nonce":"
 </script>
 <script id="elementor-pro-frontend-js" src="assets/js/pro-elements-frontend.min.js" data-rocket-defer="" defer=""></script>
 <script id="pro-elements-handlers-js" src="assets/js/elements-handlers.min.js" data-rocket-defer="" defer=""></script>
-<script>
-(function () {
-    var utmParamQueryString = new URLSearchParams(window.location.search);
-    if (utmParamQueryString.toString()) {
-        var currentHost = window.location.host; 
-        var navLinks = document.querySelectorAll('a');
-        navLinks.forEach(function (item) {
-            var linkHost = new URL(item.href).host;
-            if (linkHost !== currentHost) { 
-                var separator = item.href.indexOf('?') !== -1 ? '&' : '?';
-                item.href += separator + utmParamQueryString.toString();
-            }
-        });
-    }
-})();
-</script>
+<!--
+  Script legado de repasse de query string removido em 24/07/2026.
+  Ele copiava a query string inteira da LP para TODOS os links externos
+  (inclusive WhatsApp e link do preparatorio), o que era redundante e
+  arriscado: as UTMs/xcod/sck agora vem do script de UTMs da Utmify e os
+  parametros fbclid/fbc/fbp vem do script de repasse no fim do <body>.
+  Dois scripts reescrevendo o mesmo href geravam parametro duplicado.
+-->
 <script>window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
 if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
 images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
@@ -4735,7 +4727,7 @@ if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_c
     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
     t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "xq7vjj64xz");
+  })(window, document, "clarity", "script", "xrr8ob1igr");
 </script>
 <!-- End Microsoft Clarity -->
 
@@ -4757,30 +4749,29 @@ src="https://www.facebook.com/tr?id=1346343306919239&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
-<!-- Utmify Pixel Code -->
-<script>
-  window.pixelId = "6a5d19e50a2816c4cbc3bedd";
-  if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
-    var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
-    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-    document.head.appendChild(a);
-  }
-</script>
-<!-- End Utmify Pixel Code -->
+<!--
+  Pixel da Utmify (window.pixelId + cdn.utmify.com.br/scripts/pixel/pixel.js)
+  removido em 24/07/2026. Motivos:
+  1. A entrada e do tipo "Meta" e esta Desativada no painel da Utmify, entao o
+     pixel.js responde 400 Bad Request em todo pageview e estoura
+     "Cannot read properties of undefined (reading '_id')" no console.
+  2. E redundante: o PageView ja vem do Meta Pixel acima e o
+     InitiateCheckout/Purchase vem do pixel configurado dentro do produto na
+     Hotmart. Duplicar aqui contaria evento duas vezes.
+  A atribuicao da Utmify NAO depende dele: vem do script de UTMs (xcod/sck)
+  logo abaixo + Webhook Hotmart.
+-->
 
 <!-- Utmify UTMs Code -->
 <script
   src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-  data-utmify-prevent-xcod-sck
   data-utmify-prevent-subids
   async
   defer
 ></script>
 <!-- End Utmify UTMs Code -->
 
-<!-- Repasse fbclid/_fbc/_fbp para o checkout Cakto (mesmo racional da lp_v3) -->
+<!-- Repasse fbclid/_fbc/_fbp para o checkout Hotmart -->
 <script>
   (function () {
     function getCookie(name) {
@@ -4807,7 +4798,7 @@ src="https://www.facebook.com/tr?id=1346343306919239&ev=PageView&noscript=1"
         return href;
       }
     }
-    document.querySelectorAll('a[href*="pay.cakto.com.br"]').forEach(function (a) {
+    document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach(function (a) {
       a.addEventListener("click", function () {
         a.href = comParametrosFb(a.href);
       }, true);
