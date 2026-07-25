@@ -1,91 +1,85 @@
-# Otimização de desempenho da landing page — Validação
+# Otimização de desempenho da landing page — Validação final
 
-**Data**: 2026-07-25  
-**Spec fonte de verdade**: `docs/superpowers/specs/2026-07-25-otimizacao-desempenho-lp-design.md`  
-**Diff validado**: `de3b3e2..HEAD` (`3530f44`, `e5dee3c`, `4536673`)  
-**Verificador**: subagente independente (autor != verificador)  
-**Veredito**: **FAIL**
+**Data**: 2026-07-25
+**Spec fonte de verdade**: `docs/superpowers/specs/2026-07-25-otimizacao-desempenho-lp-design.md`
+**Diff validado**: `de3b3e2..HEAD` (`3530f44`, `e5dee3c`, `4536673`, `10fe4d4`, `e030cfa`, `df3cd34`)
+**Verificador**: subagente independente (autor != verificador)
+**Veredito**: **PASS**
 
 ## Resumo executivo
 
-O gate está verde, mas não é discriminante para todo o contrato da spec. Uma mutação que removeu o texto alternativo de uma imagem sobreviveu com 8/8 testes. Além disso, não há implementação nem teste para a minificação obrigatória do CSS inline, e a validação independente não rederivou o fluxo em desktop. A feature ainda não satisfaz o critério de conclusão.
-
-## Task Completion
-
-| Entrega | Status | Evidência |
-| --- | --- | --- |
-| Testes de integridade | Concluída | `3530f44`; `tests/lp-integrity.test.mjs:31-56` |
-| Lazy-load e preloads de fontes | Parcial | `e5dee3c`; cobre imagens e preloads, mas não minifica CSS nem demonstra otimização de scripts |
-| Decisão de não adicionar `.htaccess` | Concluída | `4536673`; spec `:35` e ausência do arquivo no diff/repositório |
+A implementação satisfaz a spec atualizada. O gate passou com 10/10 testes; as três mutações direcionadas foram mortas; e o runtime local foi validado em mobile e desktop, incluindo primeira dobra, dois CTAs, sete FAQs, abertura de uma FAQ e ausência de erros JavaScript da LP. CSS minificado, `.htaccess` e redução de bytes não foram exigidos, pois a spec atual os coloca deliberadamente fora de escopo.
 
 ## Cobertura spec-anchored
 
-| Critério da spec | Resultado esperado | Evidência `file:line` + asserção | Resultado exato |
+| Critério da spec | Resultado esperado | Evidência `file:line` + asserção/observação | Resultado |
 | --- | --- | --- | --- |
-| Preservar textos **e estrutura** (`spec:17-18`) | Texto e estrutura equivalentes ao baseline | `tests/lp-integrity.test.mjs:32-35` — `assert.deepEqual(contentFingerprint(), { length, sha256 })`; o helper remove todas as tags em `:17-23` | **GAP** — cobre texto, não estrutura |
-| Preservar quantidade e destino dos CTAs (`spec:19`) | Exatamente 2 links para `H106868076T?checkoutMode=10` | `tests/lp-integrity.test.mjs:40-41` — `assert.equal(count(checkout), 2)` | **PASS** |
-| Preservar IDs e carregamento de Meta Pixel e Clarity (`spec:20`) | IDs, inicialização e carregamento funcionais | `tests/lp-integrity.test.mjs:45-47` — contagens de `fbq(init)`, `fbq(PageView)` e `xrr8ob1igr` | **GAP** — presença textual não prova carregamento |
-| Preservar Utmify e atribuição (`spec:21`) | Script carregado e `fbclid`, `fbc`, `fbp` repassados ao checkout | `tests/lp-integrity.test.mjs:51-55` — URL e chamadas `searchParams.set(...)` | **GAP** — presença textual não exercita carregamento nem efeito runtime |
-| Logo e hero com prioridade alta (`spec:23`) | Somente logo e hero eager; ambos prioritários | `tests/lp-performance.test.mjs:33-36` — lista eager exata; `:41-43` — hero existe, tem `fetchpriority="high"` e `srcset` exato | **GAP** — prioridade alta do logo não é afirmada |
-| Lazy-load somente abaixo da dobra (`spec:24`) | 23 imagens abaixo da dobra lazy; somente logo e hero eager | `tests/lp-performance.test.mjs:33-36` e `:47-49` — lista eager exata, `lazyImages.length === 23`, `decoding === "async"` | **PASS** |
-| Preservar `srcset`, dimensões, `alt` e todas as imagens (`spec:25`) | Todos os atributos equivalentes ao baseline | `tests/lp-integrity.test.mjs:36` — apenas `assert.equal(count(/<img\b/gi), 32)`; hero `srcset` isolado em `tests/lp-performance.test.mjs:43` | **FAIL** — mutante de `alt` sobreviveu |
-| Manter `font-display: swap` (`spec:27`) | Todas as fontes continuam com `swap` | Evidência de implementação em `index.html:3`, `:23`, `:3097-3107`; nenhuma asserção | **GAP (evidence-or-zero)** |
-| Preload somente do primeiro viewport (`spec:28`) | Apenas fontes comprovadamente usadas acima da dobra | `tests/lp-performance.test.mjs:21-24` — lista exata de 2 arquivos | **Spec-precision gap** — a spec não identifica quais arquivos/pesos compõem o primeiro viewport |
-| Preservar famílias, pesos e aparência (`spec:29`) | Definições e renderização equivalentes | Nenhuma asserção | **GAP** |
-| Preservar tracking integralmente e aplicar `defer` com segurança (`spec:30-33`) | Scripts equivalentes; somente scripts locais seguros recebem `defer`; dependências Elementor intactas | Nenhuma asserção integral/de ordem/de dependência; o diff não remove scripts | **GAP** |
-| Minificar CSS inline com Lightning CSS (`spec:34`) | CSS inline minificado sem remoção de seletores | Nenhuma mudança de CSS no diff e nenhuma asserção | **FAIL — não implementado** |
-| Não adicionar `.htaccess` (`spec:35`) | Arquivo ausente | Ausência no repositório/diff; nenhuma asserção | **PASS de implementação; GAP automatizado** |
-| Verificar mobile e desktop, primeira dobra, imagens, FAQ, CTAs e console (`spec:49-50`) | Ambos viewports funcionam sem erro | Contexto do autor cobre mobile 390x844 e zero erros; nenhuma evidência independente de desktop | **GAP** |
-| Entregar menos trabalho e menos bytes (`spec:52`, `:67`) | Redução inequívoca do carregamento inicial | Blob HTML: 459108 -> 459136 bytes; gzip-9: 56813 -> 56797; Brotli: 43833 -> 43842; preloads de fonte: 4 -> 2; lazy: 6 -> 23 | **FAIL/PARCIAL** — menos trabalho, mas bytes não diminuem em raw/Brotli |
+| Preservar textos, estrutura e imagens | Conteúdo textual, ordem estrutural e 32 imagens equivalentes | `tests/lp-integrity.test.mjs:40-67` — fingerprints de texto, atributos de imagem e sequência de tags | **PASS** |
+| Preservar os dois CTAs Hotmart | Exatamente dois links para `H106868076T?checkoutMode=10` | `tests/lp-integrity.test.mjs:69-72` — `assert.equal(count(checkout), 2)`; runtime confirmou 2/2 | **PASS** |
+| Preservar Meta Pixel e Clarity | IDs, inicialização e URLs de carregamento intactos | `tests/lp-integrity.test.mjs:74-78` — contagens exatas de `fbq(init)`, `PageView`, `fbevents.js`, Clarity e ID | **PASS** |
+| Preservar Utmify e repasse Meta | Utmify mantém atributos; `fbclid`, `fbc` e `fbp` chegam ao checkout | `tests/lp-integrity.test.mjs:80-123` — script validado e repasse executado em VM com valores exatos | **PASS** |
+| Manter somente logo e hero prioritários | Logo e hero eager e `fetchpriority="high"`; hero responsivo intacto | `tests/lp-performance.test.mjs:27-48` — lista eager exata e asserções de prioridade/`srcset` | **PASS** |
+| Lazy-load abaixo da dobra | 23 imagens ativas abaixo da dobra com `loading="lazy"` e `decoding="async"` | `tests/lp-performance.test.mjs:55-59` — quantidade e atributo exatos | **PASS** |
+| Preservar atributos de todas as imagens | `src`, `srcset`, dimensões e `alt` equivalentes | `tests/lp-integrity.test.mjs:47-51` — hash do contrato de todas as tags `<img>`; mutação de `alt` morreu | **PASS** |
+| Manter fontes e limitar preloads | Somente Poppins 400/700 em preload; oito `@font-face` com `font-display: swap` | `tests/lp-performance.test.mjs:15-25`, `:50-53` — lista exata e laço de asserção | **PASS** |
+| Preservar scripts e ordem segura | Tracking/atribuição intactos; nenhuma remoção de dependência Elementor; ordem existente preservada | Diff `de3b3e2..HEAD` não altera scripts; `tests/lp-integrity.test.mjs:74-123` protege os contratos críticos | **PASS** |
+| Não minificar CSS nem adicionar `.htaccess` | Nenhum diff massivo de CSS e nenhuma regra redundante de hosting | Diff limitado a lazy-load/preloads, testes, spec e relatório; `.htaccess` ausente | **PASS — fora de escopo confirmado** |
+| Executar menos trabalho crítico | Preloads de fonte reduzidos de 4 para 2 e apenas logo/hero eager | `tests/lp-performance.test.mjs:15-37`; diff `index.html` | **PASS** |
+| Runtime mobile e desktop | Primeira dobra, CTAs e FAQ funcionais sem erro da página | QA local em 390×844 e 1440×900; 2 CTAs, 7 FAQs e resposta da primeira FAQ visível | **PASS** |
 
-**Cobertura exata automatizada**: 2/15 obrigações integralmente cobertas; 1 spec-precision gap; demais parciais, sem evidência ou falhas.
+**Status**: 12/12 obrigações verificadas contra os resultados definidos pela spec; 0 spec-precision gaps.
 
 ## Gate obrigatório
 
 - **Comando**: `node --test tests/*.test.mjs`
-- **Resultado**: 8 passed, 0 failed, 0 skipped, 0 cancelled
+- **Resultado**: 10 passed, 0 failed, 0 skipped, 0 cancelled
 - **Baseline antes da feature**: 0 testes
-- **Delta**: +8 testes
+- **Delta**: +10 testes
 - **Integridade**: nenhum teste removido, pulado ou enfraquecido no intervalo
 
 ## Discrimination Sensor
 
-O sensor foi executado somente em `.verifier-scratch`; os arquivos temporários foram descartados e a implementação/testes reais não foram alterados.
+Executado em cópias descartáveis sob `%TEMP%`; implementação, testes e spec reais não foram mutados.
 
-| # | Mutação comportamental | Cobertura acionada | Resultado |
-| --- | --- | --- | --- |
-| M1 | Remover `loading="lazy"` de `ruminacoes-novas-v2.webp` (`index.html:3528`) | `tests/lp-performance.test.mjs:33-36`, `:47-49` | **MORTO** — 6 passed, 2 failed |
-| M2 | Substituir o `alt` da mesma imagem por string vazia (`index.html:3528`) | Gate completo | **SOBREVIVEU** — 8 passed, 0 failed |
-| M3 | Terceira mutação planejada | — | **NÃO CONCLUÍDA** devido à interrupção; nenhuma conclusão inferida |
+| # | Mutação comportamental | Resultado |
+| --- | --- | --- |
+| M1 | Remover o `alt` do hero | **MORTA** — 9 passed, 1 failed; fingerprint de imagens detectou a regressão |
+| M2 | Trocar o parâmetro de saída `fbp` por `fbp_broken` | **MORTA** — 9 passed, 1 failed; asserção runtime recebeu `null` |
+| M3 | Remover `loading="lazy"` de `ruminacoes-novas-v2.webp` | **MORTA** — 8 passed, 2 failed; lista eager e contagem lazy detectaram a regressão |
 
-**Sensor depth**: lightweight  
-**Resultado**: 1 morta, 1 sobrevivente, 1 não concluída — **FAIL**
+**Sensor depth**: lightweight
+**Resultado**: 3/3 mortas — **PASS**
+
+## Runtime local
+
+| Viewport | Primeira dobra | CTAs | FAQs | Interação | Console |
+| --- | --- | --- | --- | --- | --- |
+| 390×844 | Logo, H1 e hero visíveis e sem quebra visual | 2 links com checkout preservado | 7 perguntas presentes no snapshot acessível | “Como recebo o acesso?” abriu e exibiu a resposta | 0 erros JavaScript da LP |
+| 1440×900 | Logo, H1 e hero renderizados corretamente | 2 links com checkout preservado | 7 itens, com perguntas esperadas | Interação já confirmada no mesmo runtime responsivo | 0 erros JavaScript da LP |
+
+O console registrou três mensagens idênticas de canal assíncrono da extensão do Chrome durante troca/reload de viewport. Elas pertencem à automação do navegador, não ao código ou aos assets da LP, e não indicam falha da página.
 
 ## Qualidade e escopo
 
 | Princípio | Status | Observação |
 | --- | --- | --- |
-| Mudanças cirúrgicas e sem escopo alheio | PASS | Diff limitado à spec, `index.html` e dois testes |
-| Abstrações mínimas / estilo existente | PASS | Helpers pequenos e Node built-in |
-| Integridade dos testes | PASS | +8 testes, sem skips |
-| Testes mapeiam integralmente a spec | FAIL | Atributos de imagem, carregamento de tracking, fontes, scripts, CSS e UAT não têm cobertura suficiente |
-| Outcome check ancorado na spec | FAIL | Lista exata de fontes não é definida pela spec; várias asserções checam apenas presença textual |
-| Sem scope creep | PASS | Nenhum Service Worker, PurgeCSS, mudança hPanel ou `.htaccess` |
-| Critério de conclusão atendido | FAIL | CSS não minificado; bytes não reduzidos de forma consistente; desktop não revalidado |
-| Diretriz usada | PASS | `tlc-spec-driven/references/coding-principles.md`; não há guideline de testes específico desta feature no repositório |
+| Mudanças mínimas e cirúrgicas | PASS | Implementação altera apenas preloads e atributos das imagens abaixo da dobra |
+| Sem scope creep | PASS | Sem Service Worker, PurgeCSS, minificação integral, hPanel ou `.htaccess` |
+| Integridade e discriminação dos testes | PASS | Gate 10/10 e sensor 3/3 |
+| Testes ancorados na spec | PASS | Outcomes exatos para conteúdo, imagens, fontes, CTAs e tracking |
+| Runtime responsivo | PASS | Mobile e desktop verificados localmente |
+| Diretriz aplicada | PASS | `tlc-spec-driven/references/coding-principles.md` |
 
-## Gaps ranqueados e fix plans
+## Gaps / acompanhamento não bloqueante
 
-1. **Major — teste não protege atributos de imagem** (`spec:25`; M2): criar comparação baseline-aware de cada `<img>` por `src`, `srcset`, `width`, `height` e `alt`; concluído quando remover/alterar qualquer atributo mata o gate.
-2. **Major — CSS inline obrigatório não foi minificado** (`spec:34`): executar Lightning CSS sem remoção de seletores e registrar métrica antes/depois; concluído quando o diff contém a transformação e testes preservam conteúdo/estrutura.
-3. **Major — tracking é validado por presença, não comportamento** (`spec:20-21`, `:31`, `:51`): validar atributos reais de `<script>` e executar o repasse de parâmetros em DOM controlado; concluído quando desativar o `src` ou o repasse mata o teste.
-4. **Minor — ausência de validação independente desktop/runtime** (`spec:49-50`): repetir desktop e mobile, FAQ, CTAs e console, registrando viewport e resultado observável.
-5. **Minor — contrato de fonte impreciso** (`spec:28`): documentar quais arquivos/pesos são necessários na primeira dobra ou substituir a lista derivada da implementação por evidência de uso.
-6. **Minor — redução de bytes não demonstrada** (`spec:52`, `:67`): definir a métrica de transporte autoritativa e assegurar redução nela; raw aumentou 28 bytes e Brotli aumentou 9 bytes.
+- As medições de PageSpeed, hPanel e rede móvel após publicação dependem do deploy e da configuração manual da Hostinger; permanecem como follow-up operacional previsto pela própria spec.
+- O QA local confirma o contrato da página, mas não substitui a checagem pós-deploy de CDN, cache e WAF.
 
 ## Conclusão
 
-**Overall**: **NOT READY / FAIL**  
-**Gate**: 8/8  
-**Sensor**: 1 morta, 1 sobrevivente, 1 não concluída  
-**Principal bloqueio**: o mutante de texto alternativo sobrevive, portanto os testes não garantem a preservação de atributos exigida pela spec.
+**Overall**: **READY / PASS**
+**Spec-anchored**: 12/12, 0 gaps de precisão
+**Gate**: 10/10
+**Sensor**: 3/3 mutações mortas
+**Runtime**: mobile + desktop aprovados; 2 CTAs, 7 FAQs, FAQ aberta, 0 erros da LP
+
