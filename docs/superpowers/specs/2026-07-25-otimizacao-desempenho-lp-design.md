@@ -32,7 +32,7 @@ Melhorar o carregamento móvel da landing page estática sem alterar conteúdo, 
    - aplicar `defer` apenas aos scripts locais que não precisam executar durante a análise inicial do documento;
    - não remover dependências do Elementor sem prova automatizada de que são desnecessárias.
 5. Minificar o CSS inline existente com Lightning CSS, sem remoção automática de seletores.
-6. Adicionar `.htaccess` compatível com a Hostinger para compressão e cache de arquivos estáticos, sem cache prolongado do HTML da oferta.
+6. Não adicionar `.htaccess` enquanto a produção continuar entregando Brotli/Gzip pelo hCDN e cache público para arquivos estáticos. Regras duplicadas não melhoram a primeira visita e podem manter a oferta desatualizada.
 
 ## Fora do escopo
 
@@ -41,6 +41,7 @@ Melhorar o carregamento móvel da landing page estática sem alterar conteúdo, 
 - Reestruturação do HTML ou substituição do Elementor.
 - Alteração de copy, imagens, CTAs ou eventos de tracking.
 - Mudanças automáticas no hPanel da Hostinger.
+- Regras de compressão e cache duplicadas no `.htaccess`.
 
 ## Validação
 
