@@ -37,10 +37,19 @@ test("carrega imediatamente somente logo e imagem principal", () => {
 });
 
 test("mantém prioridade alta na imagem principal responsiva", () => {
+  const [logo] = [...activeHtml.matchAll(/<img\b[^>]*logo-preparatorio-nobg\.webp[^>]*>/gi)];
   const [hero] = [...activeHtml.matchAll(/<img\b[^>]*hero-comparativo-proximo-passo-v3\.webp[^>]*>/gi)];
+  assert.ok(logo);
+  assert.match(logo[0], /fetchpriority="high"/);
   assert.ok(hero);
   assert.match(hero[0], /fetchpriority="high"/);
   assert.match(hero[0], /srcset="assets\/images\/hero-comparativo-proximo-passo-v3-mobile\.webp 760w, assets\/images\/hero-comparativo-proximo-passo-v3\.webp 1671w"/);
+});
+
+test("mantém font-display swap em todas as fontes locais", () => {
+  const fontFaces = [...html.matchAll(/@font-face\s*\{[^}]*\}/gi)].map(([rule]) => rule);
+  assert.equal(fontFaces.length, 8);
+  for (const rule of fontFaces) assert.match(rule, /font-display:\s*swap/);
 });
 
 test("decodifica assincronamente todas as imagens visíveis abaixo da dobra", () => {
