@@ -2688,7 +2688,7 @@ body.elementor-page-1619:not(.elementor-motion-effects-element-type-background),
 .elementor-1619 .elementor-element.elementor-element-0c219ac { color: #F4F1E8; }
 
 .elementor-1619 .elementor-element.elementor-element-5027466.oferta-card,
-.elementor-1619 .elementor-element.elementor-element-35585cb.oferta-card { max-width: 480px; width: 100%; min-height: 640px; }
+.elementor-1619 .elementor-element.elementor-element-35585cb.oferta-card { max-width: 480px; width: 100%; min-height: auto; }
 
 .elementor-1619 .elementor-element.elementor-element-17afafa img,
 .elementor-1619 .elementor-element.elementor-element-f64601f img { width: min(100%, 230px); height: auto; }
@@ -3319,8 +3319,42 @@ body, html { width: 100%; overflow-x: hidden; }
 	.elementor-1619 [data-id="5cb92f19"] { display: flex !important; }
 	.elementor-1619 [data-id="594f37e4"] { display: none !important; }
 	.elementor-1619 [data-id="2ee3762c"] { color: #0E3D2F !important; font-weight: 800; }
-	.bb-market-note { display: block; margin-top: 10px; color: #64736D; font-size: 12px; font-weight: 600; line-height: 1.45; }
 	.bb-consequence { display: block; margin-top: 18px; color: #0E3D2F; font-size: 16px; font-weight: 600; line-height: 1.5; }
+	/* Ancoragem de preço e benefícios dos CTAs de compra. */
+	.elementor-1619 .oferta-card [data-id="0cf5ea9"],
+	.elementor-1619 .oferta-card [data-id="0367823"],
+	.elementor-1619 .oferta-card [data-id="c38a802"],
+	.elementor-1619 .oferta-card [data-id="8fe49d9"] > [data-id="04cd8e1"],
+	.elementor-1619 .oferta-card [data-id="b5acb41"],
+	.elementor-1619 .oferta-card [data-id="82afa77"],
+	.elementor-1619 .oferta-card [data-id="ed7bd9f"],
+	.elementor-1619 .oferta-card [data-id="c4d15d6"] > [data-id="f45c50b"],
+	.elementor-1619 .oferta-card .jj { display: none !important; }
+	.bb-cta-anchor { margin: 14px 0 16px; color: #0E3D2F; text-align: center; }
+	.bb-cta-anchor p { margin: 0; }
+	.bb-cta-reference { font-size: 15px; font-weight: 700; line-height: 1.35; }
+	.bb-cta-reference del { color: #D62828; text-decoration-thickness: 2px; }
+	.bb-cta-installment { margin-top: 7px !important; font-family: Poppins, sans-serif; font-weight: 900; line-height: 1; }
+	.bb-cta-installment > span { display: block; margin-bottom: 2px; font-size: 17px; letter-spacing: -0.02em; }
+	.bb-cta-installment strong { display: flex; align-items: flex-start; justify-content: center; font-size: 92px; letter-spacing: -0.075em; line-height: 0.98; }
+	.bb-cta-installment small { margin: 16px 7px 0 0; font-size: 28px; letter-spacing: -0.04em; }
+	.bb-cta-cash { display: inline-flex; align-items: center; justify-content: center; gap: 9px; margin-top: 15px !important; padding: 10px 20px; border: 1.5px solid rgba(244, 183, 64, 0.9); border-radius: 999px; background: #F4F1E8; box-shadow: 0 6px 14px rgba(14, 61, 47, 0.12); font-size: 22px; font-weight: 800; }
+	.bb-cta-icon { flex: 0 0 auto; width: 22px; height: 22px; color: #0E3D2F; }
+	.bb-cta-cash .bb-cta-icon { width: 27px; height: 27px; }
+	.bb-cta-benefits { margin: 16px 0 0; padding: 0 4px; color: #0E3D2F; text-align: left; }
+	.bb-cta-benefits p { display: flex; align-items: flex-start; gap: 9px; margin: 0 0 9px; font-size: 13px; font-weight: 650; line-height: 1.35; }
+	.bb-cta-benefits p:first-child { font-size: 14px; font-weight: 900; text-transform: uppercase; }
+	@media (max-width: 767px) {
+		.bb-cta-anchor { margin: 12px 0 14px; }
+		.bb-cta-reference { font-size: 15px; }
+		.bb-cta-installment strong { font-size: 82px; }
+		.bb-cta-installment small { margin-top: 13px; font-size: 25px; }
+		.bb-cta-cash { margin-top: 13px !important; padding: 9px 16px; font-size: 19px; }
+		.bb-cta-cash .bb-cta-icon { width: 24px; height: 24px; }
+		.bb-cta-benefits { margin-top: 14px; padding: 0 4px; }
+		.bb-cta-benefits p { font-size: 12px; }
+		.bb-cta-benefits p:first-child { font-size: 13px; }
+	}
 	.elementor-1619 [data-id="3e92f21"], .elementor-1619 [data-id="3e92f21"] > .e-con-inner { min-height: 760px !important; }
 	.elementor-1619 [data-id="3e92f21"] [data-id="4103f0d"] { max-width: 670px; }
 	.elementor-1619 [data-id="3e92f21"] [data-id="692ae61"] strong { color: #0E3D2F; }
@@ -3359,7 +3393,7 @@ body, html { width: 100%; overflow-x: hidden; }
 		.elementor-1619 [data-id="4cea5dc"] { margin-top: 10px; }
 		.elementor-1619 [data-id="61789f7"]::before, .elementor-1619 [data-id="b9ac9ac"]::before { inset: 10px 10px auto auto; width: auto; height: auto; font-size: 8px; }
 		.elementor-1619 [data-id="61c9023e"] [data-widget_type="image.default"] img { width: 44px !important; height: 44px !important; }
-		.elementor-1619 .oferta-card { min-height: 610px !important; }
+		.elementor-1619 .oferta-card { min-height: auto !important; }
 		.elementor-1619 [data-id="3e92f21"], .elementor-1619 [data-id="3e92f21"] > .e-con-inner { min-height: 1020px !important; }
 		.autoridade-concurseiros { width: min(100%, 470px) !important; right: 50% !important; transform: translateX(50%); }
 	}
@@ -4073,7 +4107,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				</div>
 				<div class="elementor-element elementor-element-49013dfd elementor-widget__width-initial elementor-widget elementor-widget-text-editor" data-id="49013dfd" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p>Soluções equivalentes de curso, questões, plano de estudos e resumos somam <strong><del>R$ 738,13</del></strong>.</p><small class="bb-market-note">Referência de mercado consultada em 22/07/2026 em produtos avulsos para Banco do Brasil. Os itens da Passou Concursos não são vendidos separadamente.</small><span class="bb-consequence">E pensa no outro preço: quanto custa perder <strong>mais um</strong> concurso? Mais tempo no mesmo emprego, esperando a próxima oportunidade.</span>								</div>
+									<p>Soluções equivalentes de curso, questões, plano de estudos e resumos somam <strong><del>R$ 738,13</del></strong>.</p><span class="bb-consequence">E pensa no outro preço: quanto custa perder <strong>mais um</strong> concurso? Mais tempo no mesmo emprego, esperando a próxima oportunidade.</span>								</div>
 				</div>
 				</div>
 					</div>
@@ -4153,17 +4187,27 @@ body, html { width: 100%; overflow-x: hidden; }
 		</div>
 						</div>
 				</div>
-				<div class="elementor-element elementor-element-b2c9fc7 elementor-align-justify elementor-widget__width-initial btn elementor-widget elementor-widget-button" data-id="b2c9fc7" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+		<div class="bb-cta-anchor" aria-label="Condições de pagamento">
+			<p class="bb-cta-reference">De <del>R$ 738,13</del> por apenas:</p>
+			<p class="bb-cta-installment"><span>9x de</span><strong><small>R$</small>7,45</strong></p>
+			<p class="bb-cta-cash"><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.2 13.2 20.6a2 2 0 0 1-2.8 0L3.4 13.6a2 2 0 0 1 0-2.8l7.4-7.4a2 2 0 0 1 1.4-.6h6.4a2 2 0 0 1 2 2v6.4a2 2 0 0 1-.6 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg>ou R$ 67,00 à vista</p>
+		</div>
+		<div class="elementor-element elementor-element-b2c9fc7 elementor-align-justify elementor-widget__width-initial btn elementor-widget elementor-widget-button" data-id="b2c9fc7" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
 					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://pay.hotmart.com/H106868076T?checkoutMode=10">
 						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">QUERO COMEÇAR MINHA PREPARAÇÃO</span>
+									<span class="elementor-button-text">QUERO COMEÇAR MINHA PREPARAÇÃO →</span>
 					</span>
 					</a>
 				</div>
 								</div>
 				</div>
+		<div class="bb-cta-benefits">
+			<p><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg>Acesso imediato</p>
+			<p><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 5 3 8.5 7 10 4-1.5 7-5 7-10V6l-7-3Z"/><path d="m9.5 12 1.6 1.6 3.4-3.4"/></svg>Garantia incondicional de 7 dias: se não fizer sentido, devolvemos 100%.</p>
+			<p><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Compra 100% segura</p>
+		</div>
 				<div class="elementor-element elementor-element-8989479 elementor-mobile-position-inline-start jj elementor-position-inline-start elementor-view-default elementor-widget elementor-widget-icon-box" data-id="8989479" data-element_type="widget" data-e-type="widget" data-widget_type="icon-box.default">
 				<div class="elementor-widget-container">
 							<div class="elementor-icon-box-wrapper">
@@ -4426,17 +4470,27 @@ body, html { width: 100%; overflow-x: hidden; }
 		</div>
 						</div>
 				</div>
-				<div class="elementor-element elementor-element-026dfab elementor-align-justify elementor-widget__width-initial btn elementor-widget elementor-widget-button" data-id="026dfab" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+		<div class="bb-cta-anchor" aria-label="Condições de pagamento">
+			<p class="bb-cta-reference">De <del>R$ 738,13</del> por apenas:</p>
+			<p class="bb-cta-installment"><span>9x de</span><strong><small>R$</small>7,45</strong></p>
+			<p class="bb-cta-cash"><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.2 13.2 20.6a2 2 0 0 1-2.8 0L3.4 13.6a2 2 0 0 1 0-2.8l7.4-7.4a2 2 0 0 1 1.4-.6h6.4a2 2 0 0 1 2 2v6.4a2 2 0 0 1-.6 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg>ou R$ 67,00 à vista</p>
+		</div>
+		<div class="elementor-element elementor-element-026dfab elementor-align-justify elementor-widget__width-initial btn elementor-widget elementor-widget-button" data-id="026dfab" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
 					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://pay.hotmart.com/H106868076T?checkoutMode=10">
 						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">QUERO COMEÇAR MINHA PREPARAÇÃO</span>
+									<span class="elementor-button-text">QUERO COMEÇAR MINHA PREPARAÇÃO →</span>
 					</span>
 					</a>
 				</div>
 								</div>
 				</div>
+		<div class="bb-cta-benefits">
+			<p><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg>Acesso imediato</p>
+			<p><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 5 3 8.5 7 10 4-1.5 7-5 7-10V6l-7-3Z"/><path d="m9.5 12 1.6 1.6 3.4-3.4"/></svg>Garantia incondicional de 7 dias: se não fizer sentido, devolvemos 100%.</p>
+			<p><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Compra 100% segura</p>
+		</div>
 				<div class="elementor-element elementor-element-d092fc8 elementor-mobile-position-inline-start jj elementor-position-inline-start elementor-view-default elementor-widget elementor-widget-icon-box" data-id="d092fc8" data-element_type="widget" data-e-type="widget" data-widget_type="icon-box.default">
 				<div class="elementor-widget-container">
 							<div class="elementor-icon-box-wrapper">

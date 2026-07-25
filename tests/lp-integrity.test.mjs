@@ -39,8 +39,8 @@ function contentFingerprint() {
 
 test("preserva integralmente o conteúdo textual e as imagens", () => {
   assert.deepEqual(contentFingerprint(), {
-    length: 7136,
-    sha256: "50469a61ac8028bcf9024c39d6157c6ce4968fa923666d38b6da3580f0c7c94a",
+    length: 7324,
+    sha256: "55d64b691230a69335a4a0f9bb821a48c6450d09f67655e8e2a561cefbd52205",
   });
   assert.equal(count(/<img\b/gi), 32);
 
@@ -60,13 +60,49 @@ test("preserva a estrutura de elementos do corpo da página", () => {
     ([tag, name]) => `${tag[1] === "/" ? "/" : ""}${name.toLowerCase()}`,
   );
 
-  assert.equal(tags.length, 1964);
-  assert.equal(hash(tags), "d73717b39064f5207fb851d71f0192d19dfccd61845c06af4ac4f7bfe9862c6c");
+  assert.equal(tags.length, 2040);
+  assert.equal(hash(tags), "1eeda0767b5aaaaf820c7367dbe38bbf07f3724f98d524393a957ea81b64917a");
 });
 
 test("preserva os dois CTAs do checkout Hotmart", () => {
   const checkout = /<a\b[^>]*href="https:\/\/pay\.hotmart\.com\/H106868076T\?checkoutMode=10"/gi;
   assert.equal(count(checkout), 2);
+});
+
+test("exibe a ancoragem e as condições atualizadas nos dois CTAs", () => {
+  assert.equal(count(/class="bb-cta-anchor"/gi), 2);
+  assert.equal(count(/De <del>R\$ 738,13<\/del> por apenas:/gi), 2);
+  assert.equal(count(/class="bb-cta-installment"><span>9x de<\/span><strong><small>R\$<\/small>7,45<\/strong>/gi), 2);
+  assert.equal(count(/ou R\$ 67,00 à vista/gi), 2);
+  assert.equal(count(/Garantia incondicional de 7 dias: se não fizer sentido, devolvemos 100%\./gi), 2);
+  assert.equal(count(/QUERO COMEÇAR MINHA PREPARAÇÃO →/gi), 2);
+  assert.doesNotMatch(html, /Referência de mercado consultada em 22\/07\/2026/);
+});
+
+test("mantém visíveis os containers que abrigam os novos CTAs", () => {
+  assert.doesNotMatch(html, /\.oferta-card \[data-id="8fe49d9"\],/);
+  assert.doesNotMatch(html, /\.oferta-card \[data-id="c4d15d6"\],/);
+  assert.match(html, /\.oferta-card \[data-id="8fe49d9"\] > \[data-id="04cd8e1"\]/);
+  assert.match(html, /\.oferta-card \[data-id="c4d15d6"\] > \[data-id="f45c50b"\]/);
+});
+
+test("posiciona os sinais de confiança abaixo dos CTAs e usa ícones SVG", () => {
+  const benefits = [...html.matchAll(/class="bb-cta-benefits"/gi)].map((match) => match.index);
+  const buttons = [
+    html.indexOf('data-id="b2c9fc7"'),
+    html.indexOf('data-id="026dfab"'),
+  ];
+
+  assert.equal(benefits.length, 2);
+  assert.ok(benefits[0] > buttons[0]);
+  assert.ok(benefits[1] > buttons[1]);
+  assert.doesNotMatch(html, /✅|🛡️|🔒/);
+  assert.equal(count(/class="bb-cta-icon"/gi), 8);
+});
+
+test("não reserva espaço extra abaixo dos benefícios nos cards", () => {
+  assert.match(html, /\.elementor-1619 \.elementor-element\.elementor-element-5027466\.oferta-card,\s*\.elementor-1619 \.elementor-element\.elementor-element-35585cb\.oferta-card \{ max-width: 480px; width: 100%; min-height: auto; \}/);
+  assert.match(html, /\.elementor-1619 \.oferta-card \{ min-height: auto !important; \}/);
 });
 
 test("preserva Meta Pixel e Microsoft Clarity", () => {
