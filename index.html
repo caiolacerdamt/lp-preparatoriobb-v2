@@ -3260,12 +3260,18 @@ body, html { width: 100%; overflow-x: hidden; }
 	.bb-section-inner { width: min(1120px, 100%); margin: 0 auto; }
 	.bb-eyebrow { margin: 0 0 10px; color: #7FB69E; font: 800 12px/1.2 Poppins, sans-serif; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
 	.bb-section-title { max-width: 850px; margin: 0 auto 34px; color: #0E3D2F; font: 800 clamp(28px, 4vw, 46px)/1.12 Poppins, sans-serif; letter-spacing: -.035em; text-align: center; }
-	.bb-feedback-grid { column-count: 3; column-gap: 18px; }
-	.bb-feedback-card { display: inline-block; width: 100%; overflow: hidden; margin: 0 0 18px; padding: 6px; break-inside: avoid; border: 1px solid rgba(14,61,47,.15); border-radius: 18px; background: #0A1010; box-shadow: 0 16px 38px rgba(14,61,47,.12); vertical-align: top; }
+	.bb-feedback-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "feedback-a feedback-b feedback-featured" "feedback-c feedback-d feedback-featured"; gap: 18px; align-items: start; }
+	.bb-feedback-card { display: block; width: 100%; overflow: hidden; margin: 0; padding: 6px; border: 1px solid rgba(14,61,47,.15); border-radius: 18px; background: #0A1010; box-shadow: 0 16px 38px rgba(14,61,47,.12); }
+	.bb-feedback-card:nth-child(1) { grid-area: feedback-a; }
+	.bb-feedback-card:nth-child(2) { grid-area: feedback-b; }
+	.bb-feedback-card:nth-child(3) { grid-area: feedback-c; }
+	.bb-feedback-card:nth-child(4) { grid-area: feedback-d; }
+	.bb-feedback-card--featured { grid-area: feedback-featured; }
 	.bb-feedback-card img { display: block; width: 100%; height: auto; border-radius: 12px; }
 	.bb-proof-note { margin: 22px 0 0; color: #5b6d66; font-size: 12px; text-align: center; }
 	@media (max-width: 1024px) {
-		.bb-feedback-grid { column-count: 2; }
+		.bb-feedback-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "feedback-a feedback-b" "feedback-c feedback-d" "feedback-featured feedback-featured"; }
+		.bb-feedback-card--featured { width: calc(50% - 9px); justify-self: center; }
 	}
 
 	/* Ajuste tipográfico da transição dor → solução; copy e estrutura preservadas. */
@@ -3372,8 +3378,9 @@ body, html { width: 100%; overflow-x: hidden; }
 		.bb-hero-comparison > .elementor-widget-container { border-radius: 0; }
 		.bb-prova-social, .bb-fastfood { padding: 64px 18px; }
 		.bb-section-title { margin-bottom: 26px; font-size: 28px; }
-		.bb-feedback-grid { column-count: 1; column-gap: 0; width: 100%; padding: 0; overflow: visible; }
-		.bb-feedback-card { display: block; width: 100%; min-width: 0; margin-bottom: 12px; padding: 5px; }
+		.bb-feedback-grid { grid-template-columns: 1fr; grid-template-areas: "feedback-a" "feedback-b" "feedback-c" "feedback-d" "feedback-featured"; gap: 12px; width: 100%; padding: 0; overflow: visible; }
+		.bb-feedback-card { width: 100%; min-width: 0; padding: 5px; }
+		.bb-feedback-card--featured { width: 100%; }
 		.bb-feedback-card img { width: 100%; height: auto; }
 		.bb-proof-note { margin-top: 18px; line-height: 1.5; }
 		.elementor-1619 .elementor-element[data-id="77a8172c"] { --gap: 26px 26px; --row-gap: 26px; --column-gap: 26px; }
@@ -3532,12 +3539,11 @@ body, html { width: 100%; overflow-x: hidden; }
 				<p class="bb-eyebrow">Quem já começou conta</p>
 				<h2 class="bb-section-title" id="bb-prova-social-title">Veja o que dizem os alunos que já começaram antes do edital:</h2>
 				<div class="bb-feedback-grid">
-					<figure class="bb-feedback-card"><img src="assets/images/feedback1.webp" width="760" height="497" loading="lazy" decoding="async" alt="Feedback de aluno sobre as questões comentadas"></figure>
 					<figure class="bb-feedback-card"><img src="assets/images/feedback2.webp" width="760" height="405" loading="lazy" decoding="async" alt="Feedback de aluno sobre o material para concurso"></figure>
 					<figure class="bb-feedback-card"><img src="assets/images/feedback5.webp" width="760" height="268" loading="lazy" decoding="async" alt="Feedback de aluno sobre a plataforma"></figure>
 					<figure class="bb-feedback-card"><img src="assets/images/feedback6.webp" width="760" height="310" loading="lazy" decoding="async" alt="Feedback de aluno sobre material e atendimento"></figure>
 					<figure class="bb-feedback-card"><img src="assets/images/feedback8.webp" width="760" height="254" loading="lazy" decoding="async" alt="Feedback de aluno sobre método de estudos e atendimento"></figure>
-					<figure class="bb-feedback-card"><img src="assets/images/feedback-novo.webp" width="1206" height="1336" loading="lazy" decoding="async" alt="Feedback sobre evolução de 38% para 72% de acertos em duas semanas"></figure>
+					<figure class="bb-feedback-card bb-feedback-card--featured"><img src="assets/images/feedback-novo.webp" width="1206" height="1336" loading="lazy" decoding="async" alt="Feedback sobre evolução de 38% para 72% de acertos em duas semanas"></figure>
 				</div>
 				<p class="bb-proof-note">Relatos espontâneos enviados nos canais da Passou Concursos. Resultados individuais variam conforme dedicação e rotina.</p>
 			</div>

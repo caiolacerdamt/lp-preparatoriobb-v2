@@ -50,12 +50,12 @@ test("preserva integralmente o conteúdo textual e as imagens", () => {
     length: 7270,
     sha256: "ad793a4c8786fbafdaeee63747da8ccc170b5de1409fb7dddc669543071bd04a",
   });
-  assert.equal(count(/<img\b/gi), 33);
+  assert.equal(count(/<img\b/gi), 32);
 
   const imageContract = [...html.matchAll(/<img\b[^>]*>/gi)].map(([tag]) =>
     ["src", "srcset", "width", "height", "alt"].map((name) => attribute(tag, name)),
   );
-  assert.equal(hash(imageContract), "ab0b6565ecde2daa6e0781574112a363d1c01e3578fe2d536810b8b0214c21da");
+  assert.equal(hash(imageContract), "2e20a443f736735053593da444cb2cb750940d2390aa270a6dbf722ae00090ea");
 });
 
 test("preserva a estrutura de elementos do corpo da página", () => {
@@ -68,8 +68,8 @@ test("preserva a estrutura de elementos do corpo da página", () => {
     ([tag, name]) => `${tag[1] === "/" ? "/" : ""}${name.toLowerCase()}`,
   );
 
-  assert.equal(tags.length, 2043);
-  assert.equal(hash(tags), "090427ecdc0be8394184f6a33bcab50c5d2d4251b8104b8b3c0ad70399827ca3");
+  assert.equal(tags.length, 2040);
+  assert.equal(hash(tags), "1eeda0767b5aaaaf820c7367dbe38bbf07f3724f98d524393a957ea81b64917a");
 });
 
 test("preserva os dois CTAs do checkout Hotmart", () => {
@@ -106,15 +106,17 @@ test("ancora os quatro itens da oferta em exatamente R$ 297,00", () => {
   assert.doesNotMatch(section, /R\$ (?:430,92|121,41|59,89|125,91|738,13)/);
 });
 
-test("adiciona o sexto feedback em WebP e usa masonry responsivo sem cortes", async () => {
-  assert.equal(count(/class="bb-feedback-card"/gi), 6);
+test("exibe cinco feedbacks em um grid bento responsivo sem cortes", async () => {
+  assert.equal(count(/class="bb-feedback-card(?: bb-feedback-card--featured)?"/gi), 5);
+  assert.doesNotMatch(html, /src="assets\/images\/feedback1\.webp"/i);
   assert.match(
     html,
-    /<img src="assets\/images\/feedback-novo\.webp" width="1206" height="1336" loading="lazy" decoding="async" alt="Feedback sobre evolução de 38% para 72% de acertos em duas semanas">/i,
+    /<figure class="bb-feedback-card bb-feedback-card--featured"><img src="assets\/images\/feedback-novo\.webp" width="1206" height="1336" loading="lazy" decoding="async" alt="Feedback sobre evolução de 38% para 72% de acertos em duas semanas">/i,
   );
-  assert.match(html, /\.bb-feedback-grid \{[^}]*column-count: 3;/i);
-  assert.match(html, /@media \(max-width: 1024px\)[\s\S]*?\.bb-feedback-grid \{ column-count: 2; \}/i);
-  assert.match(html, /@media \(max-width: 767px\)[\s\S]*?\.bb-feedback-grid \{ column-count: 1;/i);
+  assert.match(html, /\.bb-feedback-grid \{[^}]*display: grid;[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);[^}]*grid-template-areas: "feedback-a feedback-b feedback-featured" "feedback-c feedback-d feedback-featured";/i);
+  assert.match(html, /\.bb-feedback-card--featured \{ grid-area: feedback-featured;/i);
+  assert.match(html, /@media \(max-width: 1024px\)[\s\S]*?grid-template-areas: "feedback-a feedback-b" "feedback-c feedback-d" "feedback-featured feedback-featured";[\s\S]*?\.bb-feedback-card--featured \{ width: calc\(50% - 9px\); justify-self: center; \}/i);
+  assert.match(html, /@media \(max-width: 767px\)[\s\S]*?grid-template-areas: "feedback-a" "feedback-b" "feedback-c" "feedback-d" "feedback-featured";[\s\S]*?\.bb-feedback-card--featured \{ width: 100%; \}/i);
   assert.doesNotMatch(html, /\.bb-feedback-card img \{[^}]*object-fit:\s*cover/i);
   assert.doesNotMatch(html, /feedback\.jpe?g/i);
 
