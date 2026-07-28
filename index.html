@@ -3260,11 +3260,13 @@ body, html { width: 100%; overflow-x: hidden; }
 	.bb-section-inner { width: min(1120px, 100%); margin: 0 auto; }
 	.bb-eyebrow { margin: 0 0 10px; color: #7FB69E; font: 800 12px/1.2 Poppins, sans-serif; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
 	.bb-section-title { max-width: 850px; margin: 0 auto 34px; color: #0E3D2F; font: 800 clamp(28px, 4vw, 46px)/1.12 Poppins, sans-serif; letter-spacing: -.035em; text-align: center; }
-	.bb-feedback-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; align-items: start; }
-	.bb-feedback-card { display: flex; grid-column: span 4; align-items: center; justify-content: center; aspect-ratio: 2.45 / 1; overflow: hidden; margin: 0; padding: 6px; border: 1px solid rgba(14,61,47,.15); border-radius: 18px; background: #0A1010; box-shadow: 0 16px 38px rgba(14,61,47,.12); }
-	.bb-feedback-card:nth-child(1), .bb-feedback-card:nth-child(2) { grid-column: span 6; aspect-ratio: 1.55 / 1; }
-	.bb-feedback-card img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
+	.bb-feedback-grid { column-count: 3; column-gap: 18px; }
+	.bb-feedback-card { display: inline-block; width: 100%; overflow: hidden; margin: 0 0 18px; padding: 6px; break-inside: avoid; border: 1px solid rgba(14,61,47,.15); border-radius: 18px; background: #0A1010; box-shadow: 0 16px 38px rgba(14,61,47,.12); vertical-align: top; }
+	.bb-feedback-card img { display: block; width: 100%; height: auto; border-radius: 12px; }
 	.bb-proof-note { margin: 22px 0 0; color: #5b6d66; font-size: 12px; text-align: center; }
+	@media (max-width: 1024px) {
+		.bb-feedback-grid { column-count: 2; }
+	}
 
 	/* Ajuste tipográfico da transição dor → solução; copy e estrutura preservadas. */
 	.elementor-1619 .elementor-element[data-id="4f4462a"] { --min-height: 300px; --padding-top: 26px; --padding-bottom: 26px; --padding-left: 28px; --padding-right: 28px; }
@@ -3370,9 +3372,9 @@ body, html { width: 100%; overflow-x: hidden; }
 		.bb-hero-comparison > .elementor-widget-container { border-radius: 0; }
 		.bb-prova-social, .bb-fastfood { padding: 64px 18px; }
 		.bb-section-title { margin-bottom: 26px; font-size: 28px; }
-		.bb-feedback-grid { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; padding: 0; overflow: visible; }
-		.bb-feedback-card, .bb-feedback-card:nth-child(1), .bb-feedback-card:nth-child(2) { display: block; grid-column: auto; width: 100%; min-width: 0; aspect-ratio: auto; padding: 5px; }
-		.bb-feedback-card img { width: 100%; height: auto; object-fit: initial; }
+		.bb-feedback-grid { column-count: 1; column-gap: 0; width: 100%; padding: 0; overflow: visible; }
+		.bb-feedback-card { display: block; width: 100%; min-width: 0; margin-bottom: 12px; padding: 5px; }
+		.bb-feedback-card img { width: 100%; height: auto; }
 		.bb-proof-note { margin-top: 18px; line-height: 1.5; }
 		.elementor-1619 .elementor-element[data-id="77a8172c"] { --gap: 26px 26px; --row-gap: 26px; --column-gap: 26px; }
 		.elementor-1619 .elementor-element[data-id="4f4462a"] { --min-height: 0px; --padding-top: 18px; --padding-bottom: 20px; --padding-left: 16px; --padding-right: 16px; }
@@ -3491,7 +3493,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				</div>
 				<div class="elementor-element elementor-element-1bdaf01 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="1bdaf01" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default" style="color: #F4F1E8"><span style="color:#F4B740;">Pare de adiar sua aprovação esperando o edital</span> e comece hoje a estudar o conteúdo certo do Banco do Brasil, com o <span style="color:#F4B740;">Método Próximo Passo BB</span> dizendo o que estudar cada dia, mesmo começando do zero.</h1>				</div>
+					<h1 class="elementor-heading-title elementor-size-default" style="color: #F4F1E8"><span style="color:#F4B740;">Pare de esperar o edital pra começar.</span> O <span style="color:#F4B740;">Método Próximo Passo BB</span> te diz o que estudar hoje, mesmo começando do zero.</h1>				</div>
 				</div>
 <div class="elementor-element elementor-element-221a096 e-con-full e-flex e-con e-child" data-id="221a096" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-315aa46 elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="315aa46" data-element_type="widget" data-e-type="widget" data-widget_type="icon-list.default">
@@ -3535,6 +3537,7 @@ body, html { width: 100%; overflow-x: hidden; }
 					<figure class="bb-feedback-card"><img src="assets/images/feedback5.webp" width="760" height="268" loading="lazy" decoding="async" alt="Feedback de aluno sobre a plataforma"></figure>
 					<figure class="bb-feedback-card"><img src="assets/images/feedback6.webp" width="760" height="310" loading="lazy" decoding="async" alt="Feedback de aluno sobre material e atendimento"></figure>
 					<figure class="bb-feedback-card"><img src="assets/images/feedback8.webp" width="760" height="254" loading="lazy" decoding="async" alt="Feedback de aluno sobre método de estudos e atendimento"></figure>
+					<figure class="bb-feedback-card"><img src="assets/images/feedback-novo.webp" width="1206" height="1336" loading="lazy" decoding="async" alt="Feedback sobre evolução de 38% para 72% de acertos em duas semanas"></figure>
 				</div>
 				<p class="bb-proof-note">Relatos espontâneos enviados nos canais da Passou Concursos. Resultados individuais variam conforme dedicação e rotina.</p>
 			</div>
@@ -3963,7 +3966,7 @@ body, html { width: 100%; overflow-x: hidden; }
 		<div class="elementor-element elementor-element-3e9a1e45 e-con-full e-flex e-con e-child" data-id="3e9a1e45" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-24417a36 elementor-widget elementor-widget-text-editor" data-id="24417a36" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p>R$ 430,92</p>								</div>
+									<p>R$ 147,00</p>								</div>
 				</div>
 				<div class="elementor-element elementor-element-47b6d3b8 elementor-widget__width-initial elementor-absolute elementor-view-default elementor-widget elementor-widget-icon" data-id="47b6d3b8" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="icon.default">
 				<div class="elementor-widget-container">
@@ -3989,7 +3992,7 @@ body, html { width: 100%; overflow-x: hidden; }
 		<div class="elementor-element elementor-element-69cfe89a e-con-full e-flex e-con e-child" data-id="69cfe89a" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-1457f37 elementor-widget elementor-widget-text-editor" data-id="1457f37" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p>R$ 121,41</p>								</div>
+									<p>R$ 60,00</p>								</div>
 				</div>
 				<div class="elementor-element elementor-element-23b6ab6c elementor-widget__width-initial elementor-absolute elementor-view-default elementor-widget elementor-widget-icon" data-id="23b6ab6c" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="icon.default">
 				<div class="elementor-widget-container">
@@ -4015,7 +4018,7 @@ body, html { width: 100%; overflow-x: hidden; }
 		<div class="elementor-element elementor-element-4ebf5718 e-con-full e-flex e-con e-child" data-id="4ebf5718" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-754ee133 elementor-widget elementor-widget-text-editor" data-id="754ee133" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p>R$ 59,89</p>								</div>
+									<p>R$ 40,00</p>								</div>
 				</div>
 				<div class="elementor-element elementor-element-fa63ed1 elementor-widget__width-initial elementor-absolute elementor-view-default elementor-widget elementor-widget-icon" data-id="fa63ed1" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="icon.default">
 				<div class="elementor-widget-container">
@@ -4041,7 +4044,7 @@ body, html { width: 100%; overflow-x: hidden; }
 		<div class="elementor-element elementor-element-59bb7bee e-con-full e-flex e-con e-child" data-id="59bb7bee" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-54ebe5d7 elementor-widget elementor-widget-text-editor" data-id="54ebe5d7" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p>R$ 125,91</p>								</div>
+									<p>R$ 50,00</p>								</div>
 				</div>
 				<div class="elementor-element elementor-element-3a3146c2 elementor-widget__width-initial elementor-absolute elementor-view-default elementor-widget elementor-widget-icon" data-id="3a3146c2" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="icon.default">
 				<div class="elementor-widget-container">
@@ -4107,7 +4110,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				</div>
 				<div class="elementor-element elementor-element-49013dfd elementor-widget__width-initial elementor-widget elementor-widget-text-editor" data-id="49013dfd" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p>Soluções equivalentes de curso, questões, plano de estudos e resumos somam <strong><del>R$ 738,13</del></strong>.</p><span class="bb-consequence">E pensa no outro preço: quanto custa perder <strong>mais um</strong> concurso? Mais tempo no mesmo emprego, esperando a próxima oportunidade.</span>								</div>
+									<p>Soluções equivalentes de curso, questões, plano de estudos e resumos somam <strong><del>R$ 297,00</del></strong>.</p><span class="bb-consequence">E pensa no outro preço: quanto custa perder <strong>mais um</strong> concurso? Mais tempo no mesmo emprego, esperando a próxima oportunidade.</span>								</div>
 				</div>
 				</div>
 					</div>
@@ -4135,7 +4138,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				<div class="elementor-widget-container">
 							<div class="elementor-icon-wrapper">
 			<div class="elementor-icon">
-			<div class="preco-principal" aria-label="R$ 7,45"><span>R$</span><strong>7,45</strong></div>			</div>
+			<div class="preco-principal" aria-label="R$ 5,23"><span>R$</span><strong>5,23</strong></div>			</div>
 		</div>
 						</div>
 				</div>
@@ -4153,7 +4156,7 @@ body, html { width: 100%; overflow-x: hidden; }
 
 									<h3 class="elementor-icon-box-title">
 						<span>
-							<strong>9 x de R$ 7,45</strong>						</span>
+							<strong>9 x de R$ 5,23</strong>						</span>
 					</h3>
 				
 				
@@ -4188,9 +4191,9 @@ body, html { width: 100%; overflow-x: hidden; }
 						</div>
 				</div>
 		<div class="bb-cta-anchor" aria-label="Condições de pagamento">
-			<p class="bb-cta-reference">De <del>R$ 738,13</del> por apenas:</p>
-			<p class="bb-cta-installment"><span>9x de</span><strong><small>R$</small>7,45</strong></p>
-			<p class="bb-cta-cash"><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.2 13.2 20.6a2 2 0 0 1-2.8 0L3.4 13.6a2 2 0 0 1 0-2.8l7.4-7.4a2 2 0 0 1 1.4-.6h6.4a2 2 0 0 1 2 2v6.4a2 2 0 0 1-.6 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg>ou R$ 67,00 à vista</p>
+			<p class="bb-cta-reference">De <del>R$ 297,00</del> por apenas:</p>
+			<p class="bb-cta-installment"><span>9x de</span><strong><small>R$</small>5,23</strong></p>
+			<p class="bb-cta-cash"><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.2 13.2 20.6a2 2 0 0 1-2.8 0L3.4 13.6a2 2 0 0 1 0-2.8l7.4-7.4a2 2 0 0 1 1.4-.6h6.4a2 2 0 0 1 2 2v6.4a2 2 0 0 1-.6 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg>ou R$ 47,00 à vista</p>
 		</div>
 		<div class="elementor-element elementor-element-b2c9fc7 elementor-align-justify elementor-widget__width-initial btn elementor-widget elementor-widget-button" data-id="b2c9fc7" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
@@ -4417,7 +4420,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				<div class="elementor-widget-container">
 							<div class="elementor-icon-wrapper">
 			<div class="elementor-icon">
-			<div class="preco-principal" aria-label="R$ 7,45"><span>R$</span><strong>7,45</strong></div>			</div>
+			<div class="preco-principal" aria-label="R$ 5,23"><span>R$</span><strong>5,23</strong></div>			</div>
 		</div>
 						</div>
 				</div>
@@ -4435,7 +4438,7 @@ body, html { width: 100%; overflow-x: hidden; }
 
 									<h3 class="elementor-icon-box-title">
 						<span>
-							<strong>9 x de R$ 7,45</strong>						</span>
+							<strong>9 x de R$ 5,23</strong>						</span>
 					</h3>
 				
 				
@@ -4471,9 +4474,9 @@ body, html { width: 100%; overflow-x: hidden; }
 						</div>
 				</div>
 		<div class="bb-cta-anchor" aria-label="Condições de pagamento">
-			<p class="bb-cta-reference">De <del>R$ 738,13</del> por apenas:</p>
-			<p class="bb-cta-installment"><span>9x de</span><strong><small>R$</small>7,45</strong></p>
-			<p class="bb-cta-cash"><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.2 13.2 20.6a2 2 0 0 1-2.8 0L3.4 13.6a2 2 0 0 1 0-2.8l7.4-7.4a2 2 0 0 1 1.4-.6h6.4a2 2 0 0 1 2 2v6.4a2 2 0 0 1-.6 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg>ou R$ 67,00 à vista</p>
+			<p class="bb-cta-reference">De <del>R$ 297,00</del> por apenas:</p>
+			<p class="bb-cta-installment"><span>9x de</span><strong><small>R$</small>5,23</strong></p>
+			<p class="bb-cta-cash"><svg class="bb-cta-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.2 13.2 20.6a2 2 0 0 1-2.8 0L3.4 13.6a2 2 0 0 1 0-2.8l7.4-7.4a2 2 0 0 1 1.4-.6h6.4a2 2 0 0 1 2 2v6.4a2 2 0 0 1-.6 1.4Z"/><circle cx="16.5" cy="7.5" r="1"/></svg>ou R$ 47,00 à vista</p>
 		</div>
 		<div class="elementor-element elementor-element-026dfab elementor-align-justify elementor-widget__width-initial btn elementor-widget elementor-widget-button" data-id="026dfab" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
@@ -4601,7 +4604,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				<div role="region" aria-labelledby="e-n-accordion-item-1874" class="elementor-element elementor-element-b31706e e-con-full e-flex e-con e-child" data-id="b31706e" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f4b2617 elementor-widget elementor-widget-text-editor" data-id="f4b2617" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p>Cartão em até 9 x de R$ 7,45.</p>								</div>
+									<p>Pix à vista por R$ 47,00 ou cartão em até 9x de R$ 5,23.</p>								</div>
 				</div>
 				</div>
 					</details>

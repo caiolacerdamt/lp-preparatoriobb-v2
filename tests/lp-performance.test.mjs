@@ -54,6 +54,6 @@ test("mantém font-display swap em todas as fontes locais", () => {
 
 test("decodifica assincronamente todas as imagens visíveis abaixo da dobra", () => {
   const lazyImages = [...activeHtml.matchAll(/<img\b[^>]*loading="lazy"[^>]*>/gi)].map(([tag]) => tag);
-  assert.equal(lazyImages.length, 23);
+  assert.equal(lazyImages.length, 24);
   for (const tag of lazyImages) assert.equal(attribute(tag, "decoding"), "async");
 });

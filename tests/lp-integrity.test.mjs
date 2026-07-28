@@ -21,6 +21,14 @@ function attribute(tag, name) {
   return tag.match(new RegExp(`\\b${name}="([^"]*)"`, "i"))?.[1] ?? "";
 }
 
+function visibleText(value) {
+  return value
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&(?:nbsp|amp|quot|#39|apos);/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function contentFingerprint() {
   const text = html
     .replace(/<!--[\s\S]*?-->/g, " ")
@@ -39,15 +47,15 @@ function contentFingerprint() {
 
 test("preserva integralmente o conteúdo textual e as imagens", () => {
   assert.deepEqual(contentFingerprint(), {
-    length: 7324,
-    sha256: "55d64b691230a69335a4a0f9bb821a48c6450d09f67655e8e2a561cefbd52205",
+    length: 7270,
+    sha256: "ad793a4c8786fbafdaeee63747da8ccc170b5de1409fb7dddc669543071bd04a",
   });
-  assert.equal(count(/<img\b/gi), 32);
+  assert.equal(count(/<img\b/gi), 33);
 
   const imageContract = [...html.matchAll(/<img\b[^>]*>/gi)].map(([tag]) =>
     ["src", "srcset", "width", "height", "alt"].map((name) => attribute(tag, name)),
   );
-  assert.equal(hash(imageContract), "1f39300d978adfd6a9de6c4461ba02b80b62705c3907f6fcb175cd2c2d7edf28");
+  assert.equal(hash(imageContract), "ab0b6565ecde2daa6e0781574112a363d1c01e3578fe2d536810b8b0214c21da");
 });
 
 test("preserva a estrutura de elementos do corpo da página", () => {
@@ -60,8 +68,8 @@ test("preserva a estrutura de elementos do corpo da página", () => {
     ([tag, name]) => `${tag[1] === "/" ? "/" : ""}${name.toLowerCase()}`,
   );
 
-  assert.equal(tags.length, 2040);
-  assert.equal(hash(tags), "1eeda0767b5aaaaf820c7367dbe38bbf07f3724f98d524393a957ea81b64917a");
+  assert.equal(tags.length, 2043);
+  assert.equal(hash(tags), "090427ecdc0be8394184f6a33bcab50c5d2d4251b8104b8b3c0ad70399827ca3");
 });
 
 test("preserva os dois CTAs do checkout Hotmart", () => {
@@ -71,12 +79,52 @@ test("preserva os dois CTAs do checkout Hotmart", () => {
 
 test("exibe a ancoragem e as condições atualizadas nos dois CTAs", () => {
   assert.equal(count(/class="bb-cta-anchor"/gi), 2);
-  assert.equal(count(/De <del>R\$ 738,13<\/del> por apenas:/gi), 2);
-  assert.equal(count(/class="bb-cta-installment"><span>9x de<\/span><strong><small>R\$<\/small>7,45<\/strong>/gi), 2);
-  assert.equal(count(/ou R\$ 67,00 à vista/gi), 2);
+  assert.equal(count(/De <del>R\$ 297,00<\/del> por apenas:/gi), 2);
+  assert.equal(count(/class="bb-cta-installment"><span>9x de<\/span><strong><small>R\$<\/small>5,23<\/strong>/gi), 2);
+  assert.equal(count(/ou R\$ 47,00 à vista/gi), 2);
   assert.equal(count(/Garantia incondicional de 7 dias: se não fizer sentido, devolvemos 100%\./gi), 2);
   assert.equal(count(/QUERO COMEÇAR MINHA PREPARAÇÃO →/gi), 2);
   assert.doesNotMatch(html, /Referência de mercado consultada em 22\/07\/2026/);
+});
+
+test("exibe a nova promessa principal sem alterar sua redação", () => {
+  const hero = html.match(/data-id="1bdaf01"[\s\S]*?<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? "";
+  assert.equal(
+    visibleText(hero),
+    "Pare de esperar o edital pra começar. O Método Próximo Passo BB te diz o que estudar hoje, mesmo começando do zero.",
+  );
+});
+
+test("ancora os quatro itens da oferta em exatamente R$ 297,00", () => {
+  const section = html.match(/Recapitulando[\s\S]*?Soluções equivalentes[\s\S]*?<\/section>/i)?.[0] ?? "";
+  const expectedPrices = ["147,00", "60,00", "40,00", "50,00"];
+
+  for (const price of expectedPrices) {
+    assert.equal([...section.matchAll(new RegExp(`R\\$ ${price}`, "g"))].length, 1);
+  }
+  assert.match(section, /somam <strong><del>R\$ 297,00<\/del><\/strong>/i);
+  assert.doesNotMatch(section, /R\$ (?:430,92|121,41|59,89|125,91|738,13)/);
+});
+
+test("adiciona o sexto feedback em WebP e usa masonry responsivo sem cortes", async () => {
+  assert.equal(count(/class="bb-feedback-card"/gi), 6);
+  assert.match(
+    html,
+    /<img src="assets\/images\/feedback-novo\.webp" width="1206" height="1336" loading="lazy" decoding="async" alt="Feedback sobre evolução de 38% para 72% de acertos em duas semanas">/i,
+  );
+  assert.match(html, /\.bb-feedback-grid \{[^}]*column-count: 3;/i);
+  assert.match(html, /@media \(max-width: 1024px\)[\s\S]*?\.bb-feedback-grid \{ column-count: 2; \}/i);
+  assert.match(html, /@media \(max-width: 767px\)[\s\S]*?\.bb-feedback-grid \{ column-count: 1;/i);
+  assert.doesNotMatch(html, /\.bb-feedback-card img \{[^}]*object-fit:\s*cover/i);
+
+  const image = await readFile(path.join(root, "assets", "images", "feedback-novo.webp"));
+  assert.equal(image.subarray(0, 4).toString("ascii"), "RIFF");
+  assert.equal(image.subarray(8, 12).toString("ascii"), "WEBP");
+});
+
+test("oferece Pix e cartão no FAQ com os preços atualizados", () => {
+  assert.match(html, /Pix à vista por R\$ 47,00 ou cartão em até 9x de R\$ 5,23\./i);
+  assert.doesNotMatch(html, /R\$ 738,13|R\$ 67,00|R\$ 7,45/);
 });
 
 test("mantém visíveis os containers que abrigam os novos CTAs", () => {
