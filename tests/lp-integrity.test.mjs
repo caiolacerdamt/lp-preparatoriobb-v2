@@ -116,10 +116,12 @@ test("adiciona o sexto feedback em WebP e usa masonry responsivo sem cortes", as
   assert.match(html, /@media \(max-width: 1024px\)[\s\S]*?\.bb-feedback-grid \{ column-count: 2; \}/i);
   assert.match(html, /@media \(max-width: 767px\)[\s\S]*?\.bb-feedback-grid \{ column-count: 1;/i);
   assert.doesNotMatch(html, /\.bb-feedback-card img \{[^}]*object-fit:\s*cover/i);
+  assert.doesNotMatch(html, /feedback\.jpe?g/i);
 
   const image = await readFile(path.join(root, "assets", "images", "feedback-novo.webp"));
   assert.equal(image.subarray(0, 4).toString("ascii"), "RIFF");
   assert.equal(image.subarray(8, 12).toString("ascii"), "WEBP");
+  assert.ok(image.byteLength <= 100 * 1024, `WebP excede 100 KB: ${image.byteLength} bytes`);
 });
 
 test("oferece Pix e cartão no FAQ com os preços atualizados", () => {

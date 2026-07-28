@@ -16,7 +16,7 @@ O texto pode manter destaques de cor por meio de elementos internos, mas a frase
 
 ### Feedbacks
 
-- Converter `feedback.jpeg` para `assets/images/feedback-novo.webp` com compressão WebP adequada para web e sem perda perceptível de legibilidade.
+- Converter `feedback.jpeg` para `assets/images/feedback-novo.webp`, preservando as dimensões de 1206×1336 e limitando o arquivo final a 100 KB para manter a legibilidade com redução objetiva de peso.
 - Acrescentar a nova imagem aos cinco feedbacks existentes, totalizando seis.
 - Usar um layout masonry responsivo para acomodar imagens horizontais e verticais sem cortes: três colunas no desktop, duas no tablet e uma no celular.
 - Preservar carregamento tardio, decodificação assíncrona, dimensões explícitas e texto alternativo descritivo.
@@ -57,7 +57,7 @@ O JPEG fornecido na raiz é apenas a fonte da conversão e não deve ser referen
 - Adicionar ou atualizar asserções para a nova hero, os valores da ancoragem, os dois preços dos CTAs, o Pix no FAQ e o sexto feedback WebP.
 - Confirmar que nenhum valor antigo da oferta (`R$ 738,13`, `R$ 67,00` ou `R$ 7,45`) permanece visível.
 - Confirmar que os seis feedbacks são renderizados e que o JPEG não é referenciado.
-- Inspecionar a página em larguras de desktop e celular para verificar legibilidade, ausência de cortes e equilíbrio do novo layout.
+- Inspecionar a página em desktop, tablet e celular. O layout deve computar respectivamente 3, 2 e 1 colunas, não pode causar overflow horizontal e deve preservar a proporção integral das seis imagens, sem cortes.
 
 ## Fora de escopo
 
