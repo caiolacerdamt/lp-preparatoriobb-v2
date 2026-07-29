@@ -31,13 +31,13 @@ test("carrega imediatamente somente logo e imagem principal", () => {
     .map((tag) => attribute(tag, "src"));
 
   assert.deepEqual(eagerSources, [
-    "assets/images/logo-preparatorio-nobg.webp",
+    "assets/images/logo-proximo-passo-nobg.webp",
     "assets/images/hero-comparativo-proximo-passo-v3.webp",
   ]);
 });
 
 test("mantém prioridade alta na imagem principal responsiva", () => {
-  const [logo] = [...activeHtml.matchAll(/<img\b[^>]*logo-preparatorio-nobg\.webp[^>]*>/gi)];
+  const [logo] = [...activeHtml.matchAll(/<img\b[^>]*logo-proximo-passo-nobg\.webp[^>]*>/gi)];
   const [hero] = [...activeHtml.matchAll(/<img\b[^>]*hero-comparativo-proximo-passo-v3\.webp[^>]*>/gi)];
   assert.ok(logo);
   assert.match(logo[0], /fetchpriority="high"/);

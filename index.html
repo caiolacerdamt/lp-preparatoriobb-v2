@@ -2522,18 +2522,17 @@ body.elementor-page-1619:not(.elementor-motion-effects-element-type-background),
   .elementor-1619 .elementor-element.elementor-element-1bdaf01 .elementor-heading-title { font-size: clamp(25px, 6.9vw, 28px); line-height: 1.16em; letter-spacing: -0.03em; }
   .hero-subheadline { width: 100%; max-width: 360px; margin-top: -5px; }
   .hero-subheadline p { max-width: 360px; font-size: 15.5px; line-height: 1.43; }
-  .elementor-1619 .elementor-element.elementor-element-221a096 { width: 100%; max-width: 360px; --gap: 8px 8px; --row-gap: 8px; --column-gap: 8px; padding-top: 3px; padding-bottom: 2px; justify-content: center; }
-  .elementor-1619 .elementor-element.elementor-element-ebf81b3,
-  .elementor-1619 .elementor-element.elementor-element-315aa46 { flex: 0 0 calc(50% - 4px); width: calc(50% - 4px); max-width: calc(50% - 4px); }
-  .elementor-1619 .elementor-element.elementor-element-37eda66 { flex: 0 0 auto; width: auto; max-width: 100%; }
+  .elementor-1619 .elementor-element.elementor-element-221a096 { width: 100%; max-width: 360px; --gap: 8px 8px; --row-gap: 8px; --column-gap: 8px; --flex-wrap-mobile: nowrap; flex-wrap: nowrap; padding-top: 3px; padding-bottom: 2px; justify-content: center; align-items: stretch; }
+  .elementor-1619 .elementor-element.elementor-element-315aa46,
+  .elementor-1619 .elementor-element.elementor-element-37eda66 { flex: 1 1 0; width: calc(50% - 4px); min-width: 0; max-width: calc(50% - 4px); }
   .elementor-1619 .elementor-element.elementor-element-ebf81b3 > .elementor-widget-container,
   .elementor-1619 .elementor-element.elementor-element-315aa46 > .elementor-widget-container,
-  .elementor-1619 .elementor-element.elementor-element-37eda66 > .elementor-widget-container { min-height: 44px; padding: 5px 12px; border-width: 1px; border-radius: 999px; }
-  .elementor-1619 .elementor-element.elementor-element-221a096 .elementor-icon-list-icon { width: 28px; height: 28px; min-width: 28px; margin-inline-end: 6px; }
+  .elementor-1619 .elementor-element.elementor-element-37eda66 > .elementor-widget-container { min-height: 44px; padding: 5px 6px; border-width: 1px; border-radius: 999px; }
+  .elementor-1619 .elementor-element.elementor-element-221a096 .elementor-icon-list-icon { width: 26px; height: 26px; min-width: 26px; margin-inline-end: 5px; }
   .elementor-1619 .elementor-element.elementor-element-221a096 .elementor-icon-list-icon::before { font-size: 15px; }
   .elementor-1619 .elementor-element.elementor-element-ebf81b3 .elementor-icon-list-text,
   .elementor-1619 .elementor-element.elementor-element-315aa46 .elementor-icon-list-text,
-  .elementor-1619 .elementor-element.elementor-element-37eda66 .elementor-icon-list-text { font-size: 12.5px; line-height: 1.2em; }
+  .elementor-1619 .elementor-element.elementor-element-37eda66 .elementor-icon-list-text { font-size: 10.5px; line-height: 1.2em; white-space: nowrap; }
   .elementor-1619 .elementor-element.elementor-element-f79f633 { width: var(--container-widget-width,96%); max-width: 430px; --container-widget-width: 96%; margin-top: -12px; }
   .seta-separacao-icon .elementor-icon i,
   .seta-separacao-icon .elementor-icon svg { color: #0E3D2F !important; fill: #0E3D2F !important; }
@@ -3257,6 +3256,7 @@ body, html { width: 100%; overflow-x: hidden; }
 
 	.bb-prova-social, .bb-fastfood { position: relative; width: 100%; padding: 88px 24px; font-family: "Open Sans", sans-serif; }
 	.bb-prova-social { background: #F4F1E8; color: #0E3D2F; }
+	.elementor-1619 > .bb-prova-social > .seta-separacao-icon { position: absolute !important; top: -35px; left: 50%; width: 82px; max-width: 82px; transform: translateX(-50%); z-index: 10; }
 	.bb-section-inner { width: min(1120px, 100%); margin: 0 auto; }
 	.bb-eyebrow { margin: 0 0 10px; color: #7FB69E; font: 800 12px/1.2 Poppins, sans-serif; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
 	.bb-section-title { max-width: 850px; margin: 0 auto 34px; color: #0E3D2F; font: 800 clamp(28px, 4vw, 46px)/1.12 Poppins, sans-serif; letter-spacing: -.035em; text-align: center; }
@@ -3377,6 +3377,7 @@ body, html { width: 100%; overflow-x: hidden; }
 		.elementor-1619 [data-id="f79f633"].bb-hero-comparison { width: calc(100% - 8px) !important; margin-top: 14px !important; }
 		.bb-hero-comparison > .elementor-widget-container { border-radius: 0; }
 		.bb-prova-social, .bb-fastfood { padding: 64px 18px; }
+		.elementor-1619 > .bb-prova-social > .seta-separacao-icon { top: -26px; width: 100%; max-width: 100%; }
 		.bb-section-title { margin-bottom: 26px; font-size: 28px; }
 		.bb-feedback-grid { grid-template-columns: 1fr; grid-template-areas: "feedback-a" "feedback-b" "feedback-c" "feedback-d" "feedback-featured"; gap: 12px; width: 100%; padding: 0; overflow: visible; }
 		.bb-feedback-card { width: 100%; min-width: 0; padding: 5px; }
@@ -3409,7 +3410,7 @@ body, html { width: 100%; overflow-x: hidden; }
 	@media (prefers-reduced-motion: reduce) { .bb-feedback-grid { scroll-behavior: auto; } }
 	</style>
 
-		<title>Preparatório Completo Banco do Brasil | Passou Concursos</title>
+		<title>Método Próximo Passo BB</title>
 
 
 
@@ -3496,7 +3497,7 @@ body, html { width: 100%; overflow-x: hidden; }
 		<div class="elementor-element elementor-element-9eb20d9 e-con-full e-flex e-con e-child" data-id="9eb20d9" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-8c31907 elementor-widget__width-initial elementor-widget elementor-widget-image" data-id="8c31907" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
 				<div class="elementor-widget-container">
-															<img fetchpriority="high" decoding="async" width="647" height="210" src="assets/images/logo-preparatorio-nobg.webp" class="attachment-full size-full wp-image-34" alt="">															</div>
+															<img fetchpriority="high" decoding="async" width="1600" height="533" src="assets/images/logo-proximo-passo-nobg.webp" class="attachment-full size-full wp-image-34" alt="Método Próximo Passo BB">															</div>
 				</div>
 				<div class="elementor-element elementor-element-1bdaf01 elementor-widget__width-initial elementor-widget elementor-widget-heading" data-id="1bdaf01" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
@@ -3535,6 +3536,15 @@ body, html { width: 100%; overflow-x: hidden; }
 					</div>
 				</header>
 		<section class="bb-prova-social" aria-labelledby="bb-prova-social-title">
+			<div class="elementor-element elementor-element-c7ae53b elementor-widget__width-initial elementor-absolute seta-separacao-icon elementor-view-default elementor-widget elementor-widget-icon" data-id="c7ae53b" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="icon.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-icon-wrapper">
+						<div class="elementor-icon">
+							<svg aria-hidden="true" focusable="false" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M413 222L435 245Q442 252 442 262Q442 272 435 279L241 473Q234 480 224 480Q214 480 207 473L13 279Q6 272 6 262Q6 252 13 245L35 222Q42 215 52 215.5Q62 216 69 223L184 343L184 56Q184 46 191 39Q198 32 208 32L240 32Q250 32 257 39Q264 46 264 56L264 343L379 223Q386 216 396 215.5Q406 215 413 222Z"/></svg>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="bb-section-inner">
 				<p class="bb-eyebrow">Quem já começou conta</p>
 				<h2 class="bb-section-title" id="bb-prova-social-title">Veja o que dizem os alunos que já começaram antes do edital:</h2>
@@ -3550,14 +3560,6 @@ body, html { width: 100%; overflow-x: hidden; }
 		</section>
 		<section class="elementor-element elementor-element-7645bead e-flex e-con-boxed e-con e-parent e-lazyloaded" data-id="7645bead" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-c7ae53b elementor-widget__width-initial elementor-absolute seta-separacao-icon elementor-view-default elementor-widget elementor-widget-icon" data-id="c7ae53b" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="icon.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-icon-wrapper">
-			<div class="elementor-icon">
-			<svg aria-hidden="true" focusable="false" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M413 222L435 245Q442 252 442 262Q442 272 435 279L241 473Q234 480 224 480Q214 480 207 473L13 279Q6 272 6 262Q6 252 13 245L35 222Q42 215 52 215.5Q62 216 69 223L184 343L184 56Q184 46 191 39Q198 32 208 32L240 32Q250 32 257 39Q264 46 264 56L264 343L379 223Q386 216 396 215.5Q406 215 413 222Z"/></svg>			</div>
-		</div>
-						</div>
-				</div>
 				<div class="elementor-element elementor-element-7581af97 elementor-widget elementor-widget-text-editor" data-id="7581af97" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
 									<p class="cvGsUA block-font-kerning-none block-font-feature-liga-off block-font-feature-clig-off block-font-feature-calt-off direction-ltr align-center para-style-body"><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none">Você vê a notícia do concurso, sente o aperto no peito…</span></p><p class="cvGsUA block-font-kerning-none block-font-feature-liga-off block-font-feature-clig-off block-font-feature-calt-off direction-ltr align-center para-style-body"><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none">e continua sem começar.</span></p>								</div>
@@ -4133,7 +4135,7 @@ body, html { width: 100%; overflow-x: hidden; }
 		<div class="elementor-element elementor-element-5027466 e-con-full enfim-card oferta-card e-flex e-con e-child" data-id="5027466" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-17afafa elementor-widget__width-initial elementor-widget elementor-widget-image" data-id="17afafa" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
 				<div class="elementor-widget-container">
-															<img loading="lazy" decoding="async" width="720" height="172" src="assets/images/logo-preparatorio-nobg.webp" class="attachment-large size-large" alt="Preparatório Completo Banco do Brasil">															</div>
+															<img loading="lazy" decoding="async" width="1600" height="533" src="assets/images/logo-proximo-passo-nobg.webp" class="attachment-large size-large" alt="Método Próximo Passo BB">															</div>
 				</div>
 				<div class="elementor-element elementor-element-0cf5ea9 elementor-widget elementor-widget-text-editor" data-id="0cf5ea9" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
@@ -4415,7 +4417,7 @@ body, html { width: 100%; overflow-x: hidden; }
 		<div class="elementor-element elementor-element-35585cb e-con-full oferta-card e-flex e-con e-child" data-id="35585cb" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f64601f elementor-widget__width-initial elementor-widget elementor-widget-image" data-id="f64601f" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
 				<div class="elementor-widget-container">
-															<img loading="lazy" decoding="async" width="720" height="172" src="assets/images/logo-preparatorio-nobg.webp" class="attachment-large size-large" alt="Preparatório Completo Banco do Brasil">															</div>
+															<img loading="lazy" decoding="async" width="1600" height="533" src="assets/images/logo-proximo-passo-nobg.webp" class="attachment-large size-large" alt="Método Próximo Passo BB">															</div>
 				</div>
 				<div class="elementor-element elementor-element-b5acb41 elementor-widget elementor-widget-text-editor" data-id="b5acb41" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
@@ -4651,7 +4653,7 @@ body, html { width: 100%; overflow-x: hidden; }
 					<div class="e-con-inner">
 				<div class="elementor-element elementor-element-3dd2d9b elementor-widget elementor-widget-text-editor" data-id="3dd2d9b" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<div class="footer-conteudo"><img decoding="async" loading="lazy" class="footer-logo" src="assets/images/logo-preparatorio-nobg.webp" width="720" height="172" alt="Preparatório Completo Banco do Brasil"><p class="footer-contato">Dúvidas? Fale com a gente: <a href="https://wa.me/5561996712159" target="_blank" rel="noopener">61996712159</a></p><p class="footer-links">Termos de Uso · Política de Privacidade</p><p class="footer-copy">© 2026 Passou Concursos. Todos os direitos reservados.</p></div>								</div>
+									<div class="footer-conteudo"><img decoding="async" loading="lazy" class="footer-logo" src="assets/images/logo-proximo-passo-nobg.webp" width="1600" height="533" alt="Método Próximo Passo BB"><p class="footer-contato">Dúvidas? Fale com a gente: <a href="https://wa.me/5561996712159" target="_blank" rel="noopener">61996712159</a></p><p class="footer-links">Termos de Uso · Política de Privacidade</p><p class="footer-copy">© 2026 Passou Concursos. Todos os direitos reservados.</p></div>								</div>
 				</div>
 					</div>
 				</footer>

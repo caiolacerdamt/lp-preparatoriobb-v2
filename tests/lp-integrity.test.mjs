@@ -47,15 +47,15 @@ function contentFingerprint() {
 
 test("preserva integralmente o conteúdo textual e as imagens", () => {
   assert.deepEqual(contentFingerprint(), {
-    length: 7270,
-    sha256: "ad793a4c8786fbafdaeee63747da8ccc170b5de1409fb7dddc669543071bd04a",
+    length: 7237,
+    sha256: "3f295fb395f9b5cba910168069f639a700ec7c7119871d14f71e480441c89b37",
   });
   assert.equal(count(/<img\b/gi), 32);
 
   const imageContract = [...html.matchAll(/<img\b[^>]*>/gi)].map(([tag]) =>
     ["src", "srcset", "width", "height", "alt"].map((name) => attribute(tag, name)),
   );
-  assert.equal(hash(imageContract), "2e20a443f736735053593da444cb2cb750940d2390aa270a6dbf722ae00090ea");
+  assert.equal(hash(imageContract), "6f27103eba8e41a0d9219e69914ae892f02613e87d2ed98a7f7131edc9ef9ae9");
 });
 
 test("preserva a estrutura de elementos do corpo da página", () => {
@@ -69,7 +69,25 @@ test("preserva a estrutura de elementos do corpo da página", () => {
   );
 
   assert.equal(tags.length, 2040);
-  assert.equal(hash(tags), "1eeda0767b5aaaaf820c7367dbe38bbf07f3724f98d524393a957ea81b64917a");
+  assert.equal(hash(tags), "054f1c19ccf3c4289121df0fa80f29ce16ed7156c8ed4f9e1997f1167b5b74b9");
+});
+
+test("reposiciona a seta, alinha os indicadores e troca todas as logos", async () => {
+  const socialStart = html.indexOf('<section class="bb-prova-social"');
+  const socialContent = html.indexOf('<div class="bb-section-inner">', socialStart);
+  const arrow = html.indexOf('data-id="c7ae53b"', socialStart);
+
+  assert.equal(count(/data-id="c7ae53b"/gi), 1);
+  assert.ok(arrow > socialStart && arrow < socialContent);
+  assert.match(html, /elementor-element-221a096 \{[^}]*--flex-wrap-mobile: nowrap;[^}]*flex-wrap: nowrap;/i);
+  assert.match(html, /elementor-element-315aa46,[\s\S]*?elementor-element-37eda66 \{[^}]*flex: 1 1 0;[^}]*width: calc\(50% - 4px\);/i);
+  assert.equal(count(/logo-proximo-passo-nobg\.webp/gi), 4);
+  assert.doesNotMatch(html, /logo-preparatorio-nobg\.webp/i);
+
+  const logo = await readFile(path.join(root, "assets", "images", "logo-proximo-passo-nobg.webp"));
+  assert.equal(logo.subarray(0, 4).toString("ascii"), "RIFF");
+  assert.equal(logo.subarray(8, 12).toString("ascii"), "WEBP");
+  assert.ok(logo.byteLength < 60 * 1024, `WebP da logo excede 60 KB: ${logo.byteLength} bytes`);
 });
 
 test("preserva os dois CTAs do checkout Hotmart", () => {
