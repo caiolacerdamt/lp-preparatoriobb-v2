@@ -55,7 +55,7 @@ test("preserva integralmente o conteúdo textual e as imagens", () => {
   const imageContract = [...html.matchAll(/<img\b[^>]*>/gi)].map(([tag]) =>
     ["src", "srcset", "width", "height", "alt"].map((name) => attribute(tag, name)),
   );
-  assert.equal(hash(imageContract), "219a686a2c8a5304f079520addce7af25c4ba087bb84194b2c9d482ba76e5c04");
+  assert.equal(hash(imageContract), "efb9cb2350b4064080a2e7ba6ebcc1c424eae170b42384bf93c7071dd8d07779");
 });
 
 test("preserva a estrutura de elementos do corpo da página", () => {
@@ -129,7 +129,7 @@ test("exibe cinco feedbacks em um grid bento responsivo sem cortes", async () =>
   assert.doesNotMatch(html, /src="assets\/images\/feedback1\.webp"/i);
   assert.match(
     html,
-    /<figure class="bb-feedback-card bb-feedback-card--featured"><img src="assets\/images\/feedback-novo\.webp" width="1206" height="1336" loading="lazy" decoding="async" alt="Feedback sobre evolução de 38% para 72% de acertos em duas semanas">/i,
+    /<figure class="bb-feedback-card bb-feedback-card--featured"><img src="assets\/images\/feedback-novo\.webp" srcset="assets\/images\/feedback-novo-480\.webp 480w, assets\/images\/feedback-novo-800\.webp 800w, assets\/images\/feedback-novo-960\.webp 960w, assets\/images\/feedback-novo\.webp 1206w" sizes="\(max-width: 767px\) calc\(100vw - 46px\), \(max-width: 1024px\) calc\(50vw - 45px\), 350px" width="1206" height="1336" loading="lazy" decoding="async" alt="Feedback sobre evolução de 38% para 72% de acertos em duas semanas">/i,
   );
   assert.match(html, /\.bb-feedback-grid \{[^}]*display: grid;[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);[^}]*grid-template-areas: "feedback-a feedback-b feedback-featured" "feedback-c feedback-d feedback-featured";/i);
   assert.match(html, /\.bb-feedback-card--featured \{ grid-area: feedback-featured;/i);

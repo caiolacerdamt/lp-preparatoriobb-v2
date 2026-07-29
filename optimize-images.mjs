@@ -33,6 +33,14 @@ const plano = [
   { arq: "feedback5.webp", alvo: 700 },
   { arq: "feedback6.webp", alvo: 700 },
   { arq: "feedback8.webp", alvo: 700 },
+  {
+    arq: "feedback-novo.webp",
+    variantes: [
+      { sufixo: "-480", largura: 480 },
+      { sufixo: "-800", largura: 800 },
+      { sufixo: "-960", largura: 960 },
+    ],
+  },
   { arq: "logo-preparatorio-nobg.webp", alvo: 460 },
   {
     arq: "logo-proximo-passo-nobg.webp",

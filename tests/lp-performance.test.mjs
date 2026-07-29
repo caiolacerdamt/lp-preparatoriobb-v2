@@ -87,6 +87,30 @@ test("entrega todas as logos em variantes Retina responsivas", async () => {
   }
 });
 
+test("entrega o feedback destacado em variantes Retina responsivas", async () => {
+  const [feedback] = activeHtml.match(/<img\b[^>]*src="assets\/images\/feedback-novo\.webp"[^>]*>/i) ?? [];
+  assert.ok(feedback);
+  assert.equal(
+    attribute(feedback, "srcset"),
+    "assets/images/feedback-novo-480.webp 480w, assets/images/feedback-novo-800.webp 800w, assets/images/feedback-novo-960.webp 960w, assets/images/feedback-novo.webp 1206w",
+  );
+  assert.equal(
+    attribute(feedback, "sizes"),
+    "(max-width: 767px) calc(100vw - 46px), (max-width: 1024px) calc(50vw - 45px), 350px",
+  );
+  assert.equal(attribute(feedback, "width"), "1206");
+  assert.equal(attribute(feedback, "height"), "1336");
+  assert.equal(attribute(feedback, "loading"), "lazy");
+  assert.equal(attribute(feedback, "decoding"), "async");
+
+  for (const width of [480, 800, 960]) {
+    const image = await readFile(path.join(root, "assets", "images", `feedback-novo-${width}.webp`));
+    const metadata = await sharp(image).metadata();
+    assert.equal(metadata.format, "webp");
+    assert.equal(metadata.width, width);
+  }
+});
+
 test("mantém font-display swap em todas as fontes locais", () => {
   const fontFaces = [...html.matchAll(/@font-face\s*\{[^}]*\}/gi)].map(([rule]) => rule);
   assert.equal(fontFaces.length, 8);
