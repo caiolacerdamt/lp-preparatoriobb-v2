@@ -55,7 +55,7 @@ test("preserva integralmente o conteúdo textual e as imagens", () => {
   const imageContract = [...html.matchAll(/<img\b[^>]*>/gi)].map(([tag]) =>
     ["src", "srcset", "width", "height", "alt"].map((name) => attribute(tag, name)),
   );
-  assert.equal(hash(imageContract), "6f27103eba8e41a0d9219e69914ae892f02613e87d2ed98a7f7131edc9ef9ae9");
+  assert.equal(hash(imageContract), "219a686a2c8a5304f079520addce7af25c4ba087bb84194b2c9d482ba76e5c04");
 });
 
 test("preserva a estrutura de elementos do corpo da página", () => {

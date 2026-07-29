@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import sharp from "sharp";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const html = await readFile(path.join(root, "index.html"), "utf8");
@@ -58,6 +59,32 @@ test("mantém a imagem comparativa responsiva sem disputar prioridade com o LCP"
   assert.ok(hero);
   assert.doesNotMatch(hero[0], /fetchpriority=/);
   assert.match(hero[0], /srcset="assets\/images\/hero-comparativo-proximo-passo-v3-mobile\.webp 760w, assets\/images\/hero-comparativo-proximo-passo-v3\.webp 1671w"/);
+});
+
+test("entrega todas as logos em variantes Retina responsivas", async () => {
+  const logos = [...activeHtml.matchAll(/<img\b[^>]*src="assets\/images\/logo-proximo-passo-nobg\.webp"[^>]*>/gi)]
+    .map(([tag]) => tag);
+  const expectedSrcset = [
+    "assets/images/logo-proximo-passo-nobg-250.webp 250w",
+    "assets/images/logo-proximo-passo-nobg-420.webp 420w",
+    "assets/images/logo-proximo-passo-nobg-640.webp 640w",
+  ].join(", ");
+
+  assert.equal(logos.length, 4);
+  assert.deepEqual(logos.map((tag) => attribute(tag, "srcset")), Array(4).fill(expectedSrcset));
+  assert.deepEqual(logos.map((tag) => attribute(tag, "sizes")), [
+    "(max-width: 767px) 125px, (max-width: 1024px) 170px, (max-width: 1366px) 190px, 210px",
+    "(max-width: 767px) 220px, 260px",
+    "(max-width: 767px) 220px, 260px",
+    "(max-width: 767px) 150px, 170px",
+  ]);
+
+  for (const width of [250, 420, 640]) {
+    const image = await readFile(path.join(root, "assets", "images", `logo-proximo-passo-nobg-${width}.webp`));
+    const metadata = await sharp(image).metadata();
+    assert.equal(metadata.format, "webp");
+    assert.equal(metadata.width, width);
+  }
 });
 
 test("mantém font-display swap em todas as fontes locais", () => {
