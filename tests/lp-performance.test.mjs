@@ -36,13 +36,27 @@ test("carrega imediatamente somente logo e imagem principal", () => {
   ]);
 });
 
-test("mantém prioridade alta na imagem principal responsiva", () => {
+test("prioriza somente o background que determina o LCP", () => {
+  const imagePreloads = [...html.matchAll(/<link\b[^>]*>/gi)]
+    .map(([tag]) => tag)
+    .filter((tag) => attribute(tag, "rel") === "preload" && attribute(tag, "as") === "image");
+
+  assert.equal(imagePreloads.length, 1);
+  assert.equal(attribute(imagePreloads[0], "href"), "assets/images/banner-fundo-hero.webp");
+  assert.equal(attribute(imagePreloads[0], "type"), "image/webp");
+  assert.equal(attribute(imagePreloads[0], "fetchpriority"), "high");
+
+  const highPriorityImages = [...activeHtml.matchAll(/<img\b[^>]*fetchpriority="high"[^>]*>/gi)];
+  assert.equal(highPriorityImages.length, 0);
+});
+
+test("mantém a imagem comparativa responsiva sem disputar prioridade com o LCP", () => {
   const [logo] = [...activeHtml.matchAll(/<img\b[^>]*logo-proximo-passo-nobg\.webp[^>]*>/gi)];
   const [hero] = [...activeHtml.matchAll(/<img\b[^>]*hero-comparativo-proximo-passo-v3\.webp[^>]*>/gi)];
   assert.ok(logo);
-  assert.match(logo[0], /fetchpriority="high"/);
+  assert.doesNotMatch(logo[0], /fetchpriority=/);
   assert.ok(hero);
-  assert.match(hero[0], /fetchpriority="high"/);
+  assert.doesNotMatch(hero[0], /fetchpriority=/);
   assert.match(hero[0], /srcset="assets\/images\/hero-comparativo-proximo-passo-v3-mobile\.webp 760w, assets\/images\/hero-comparativo-proximo-passo-v3\.webp 1671w"/);
 });
 
