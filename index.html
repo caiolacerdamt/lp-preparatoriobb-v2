@@ -3256,7 +3256,24 @@ body, html { width: 100%; overflow-x: hidden; }
 
 	.bb-prova-social, .bb-fastfood { position: relative; width: 100%; padding: 88px 24px; font-family: "Open Sans", sans-serif; }
 	.bb-prova-social { background: #F4F1E8; color: #0E3D2F; }
-	.elementor-1619 > .bb-prova-social > .seta-separacao-icon { position: absolute !important; top: -35px; left: 50%; width: 82px; max-width: 82px; transform: translateX(-50%); z-index: 10; }
+	.elementor-1619 .elementor-element.elementor-element-2e23fbc { --min-height: 100svh; --padding-bottom: 32px; }
+	.bb-hero-comparison img { max-height: max(260px, calc(100svh - 430px)); width: auto !important; max-width: 100%; margin-inline: auto; }
+	.bb-hero-cta-wrap { position: relative; z-index: 3; display: flex; justify-content: center; width: min(420px, 100%); margin: 20px auto 0; }
+	.elementor a.bb-hero-cta { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 62px; padding: 14px 28px; border-radius: 999px; background: #F4B740; box-shadow: 0 6px 18px rgba(10,49,37,.25), 0 0 0 5px rgba(244,183,64,.16), 0 0 26px 2px rgba(244,183,64,.5); animation: bb-hero-cta-glow 2.6s ease-in-out infinite; color: #0A3125; font: 800 16px/1.15 Poppins, sans-serif; letter-spacing: -.01em; text-align: center; text-decoration: none; text-transform: uppercase; cursor: pointer; transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+	.elementor a.bb-hero-cta:hover { background: #FFC85A; box-shadow: 0 10px 24px rgba(10,49,37,.28), 0 0 0 7px rgba(244,183,64,.26), 0 0 40px 5px rgba(255,200,90,.8); color: #0A3125; transform: translateY(-2px); animation: none; }
+	.elementor a.bb-hero-cta:active { box-shadow: 0 4px 12px rgba(10,49,37,.24), 0 0 0 5px rgba(244,183,64,.22), 0 0 26px 2px rgba(244,183,64,.6); transform: translateY(0); animation: none; }
+	@keyframes bb-hero-cta-glow {
+		0%, 100% { box-shadow: 0 6px 18px rgba(10,49,37,.25), 0 0 0 4px rgba(244,183,64,.14), 0 0 22px 1px rgba(244,183,64,.42); }
+		50% { box-shadow: 0 6px 18px rgba(10,49,37,.25), 0 0 0 8px rgba(244,183,64,.22), 0 0 36px 4px rgba(244,183,64,.7); }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.elementor a.bb-hero-cta { animation: none; box-shadow: 0 6px 18px rgba(10,49,37,.25), 0 0 0 5px rgba(244,183,64,.16), 0 0 26px 2px rgba(244,183,64,.5); }
+	}
+	.elementor a.bb-hero-cta:focus-visible { outline: 3px solid #F4F1E8; outline-offset: 3px; }
+	.bb-hero-cta-icon { display: flex; flex: 0 0 18px; align-items: center; justify-content: center; width: 18px; height: 18px; }
+	.bb-hero-cta-icon svg { width: 14px; height: 14px; fill: currentColor; transition: transform .2s ease; }
+	.elementor a.bb-hero-cta:hover .bb-hero-cta-icon svg { transform: translateY(2px); }
+	#oferta { scroll-margin-top: 24px; }
 	.bb-section-inner { width: min(1120px, 100%); margin: 0 auto; }
 	.bb-eyebrow { margin: 0 0 10px; color: #7FB69E; font: 800 12px/1.2 Poppins, sans-serif; letter-spacing: .13em; text-align: center; text-transform: uppercase; }
 	.bb-section-title { max-width: 850px; margin: 0 auto 34px; color: #0E3D2F; font: 800 clamp(28px, 4vw, 46px)/1.12 Poppins, sans-serif; letter-spacing: -.035em; text-align: center; }
@@ -3373,11 +3390,15 @@ body, html { width: 100%; overflow-x: hidden; }
 	@media (max-width: 767px) {
 		.bb-preheadline { margin-bottom: 10px; font-size: 10px; letter-spacing: .09em; }
 		.bb-subheadline { margin: 12px auto 16px; padding: 0 8px; font-size: 15px; }
-		.elementor-1619 [data-id="2e23fbc"] { --padding-bottom: 34px; }
+		.elementor-1619 .elementor-element.elementor-element-2e23fbc { --min-height: 0px; --padding-bottom: 28px; }
+		.bb-hero-comparison img { max-height: none; width: 100% !important; }
 		.elementor-1619 [data-id="f79f633"].bb-hero-comparison { width: calc(100% - 8px) !important; margin-top: 14px !important; }
 		.bb-hero-comparison > .elementor-widget-container { border-radius: 0; }
 		.bb-prova-social, .bb-fastfood { padding: 64px 18px; }
-		.elementor-1619 > .bb-prova-social > .seta-separacao-icon { top: -26px; width: 100%; max-width: 100%; }
+		.bb-hero-cta-wrap { width: 100%; max-width: 340px; margin: 14px auto 0; }
+		.elementor a.bb-hero-cta { min-height: 56px; padding: 12px 20px; gap: 8px; font-size: 13.5px; }
+		.bb-hero-cta-icon { width: 16px; height: 16px; flex-basis: 16px; }
+		.bb-hero-cta-icon svg { width: 12px; height: 12px; }
 		.bb-section-title { margin-bottom: 26px; font-size: 28px; }
 		.bb-feedback-grid { grid-template-columns: 1fr; grid-template-areas: "feedback-a" "feedback-b" "feedback-c" "feedback-d" "feedback-featured"; gap: 12px; width: 100%; padding: 0; overflow: visible; }
 		.bb-feedback-card { width: 100%; min-width: 0; padding: 5px; }
@@ -3503,48 +3524,21 @@ body, html { width: 100%; overflow-x: hidden; }
 				<div class="elementor-widget-container">
 					<h1 class="elementor-heading-title elementor-size-default" style="color: #F4F1E8"><span style="color:#F4B740;">Pare de esperar o edital pra começar.</span> O <span style="color:#F4B740;">Método Próximo Passo BB</span> te diz o que estudar hoje, mesmo começando do zero.</h1>				</div>
 				</div>
-<div class="elementor-element elementor-element-221a096 e-con-full e-flex e-con e-child" data-id="221a096" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-315aa46 elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="315aa46" data-element_type="widget" data-e-type="widget" data-widget_type="icon-list.default">
-				<div class="elementor-widget-container">
-							<ul class="elementor-icon-list-items">
-							<li class="elementor-icon-list-item">
-											<span class="elementor-icon-list-icon">
-							<svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M62 401Q76 405 83 414.5Q90 424 90 436Q90 454 78 467Q66 480 42 480Q21 480 5 471Q-4 464 2 455L8 445Q13 436 24 442Q31 445 39 445Q53 445 53 437Q53 428 37 428L33 428Q25 428 20 420L19 418Q16 411 22 403L28 396Q33 390 39 384L16 384Q8 384 8 376L8 360Q8 352 16 352L73 352Q84 352 84 363L84 367Q84 367 84 368Q84 375 79 381ZM496 224Q503 224 507.5 228.5Q512 233 512 240L512 272Q512 279 507.5 283.5Q503 288 496 288L176 288Q169 288 164.5 283.5Q160 279 160 272L160 240Q160 233 164.5 228.5Q169 224 176 224ZM496 64Q503 64 507.5 68.5Q512 73 512 80L512 112Q512 119 507.5 123.5Q503 128 496 128L176 128Q169 128 164.5 123.5Q160 119 160 112L160 80Q160 73 164.5 68.5Q169 64 176 64ZM496 384Q503 384 507.5 388.5Q512 393 512 400L512 432Q512 439 507.5 443.5Q503 448 496 448L176 448Q169 448 164.5 443.5Q160 439 160 432L160 400Q160 393 164.5 388.5Q169 384 176 384ZM16 160Q8 160 8 152L8 136Q8 128 16 128L32 128L32 64L24 64Q16 64 16 56Q16 54 17 52L25 36Q27 32 32 32L56 32Q64 32 64 40L64 128L80 128Q88 128 88 136L88 152Q88 160 80 160ZM12 320Q0 320 0 309L0 305Q0 284 12.5 269.5Q25 255 38 247.5Q51 240 51 235Q51 227 42 227Q36 227 32 231Q23 239 16 233L8 226Q-2 219 5 211Q19 192 45 192Q62 192 76 202Q90 212 90 232Q90 248 78.5 259.5Q67 271 54.5 278Q42 285 41 288L80 288Q88 288 88 296L88 312Q88 320 80 320Z"/></svg>						</span>
-										<span class="elementor-icon-list-text">+2000 Questões</span>
-									</li>
-						</ul>
-						</div>
-				</div>
-				<div class="elementor-element elementor-element-37eda66 elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="37eda66" data-element_type="widget" data-e-type="widget" data-widget_type="icon-list.default">
-				<div class="elementor-widget-container">
-							<ul class="elementor-icon-list-items">
-							<li class="elementor-icon-list-item">
-											<span class="elementor-icon-list-icon">
-							<svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M80.5 80.5Q80.5 80.5 116.75 44.25Q153 8 256 8Q359 8 431.5 80.5Q504 153 504 256Q504 359 431.5 431.5Q359 504 256 504Q153 504 80.5 431.5Q8 359 8 256Q8 153 80.5 80.5ZM348 321Q352 317 352 311Q352 303 346 298L288 256L288 112Q288 105 283.5 100.5Q279 96 272 96L240 96Q233 96 228.5 100.5Q224 105 224 112L224 268Q224 287 239 299L306 348Q310 352 316 352Q324 352 328 346Z"/></svg>						</span>
-										<span class="elementor-icon-list-text">Menos de 1h por dia</span>
-									</li>
-						</ul>
-						</div>
-				</div>
-				</div>
 				<div class="elementor-element elementor-element-f79f633 elementor-widget__width-initial elementor-widget elementor-widget-image bb-hero-comparison" data-id="f79f633" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
 				<div class="elementor-widget-container">
 					<img decoding="async" width="1671" height="941" src="assets/images/hero-comparativo-proximo-passo-v3.webp" srcset="assets/images/hero-comparativo-proximo-passo-v3-mobile.webp 760w, assets/images/hero-comparativo-proximo-passo-v3.webp 1671w" sizes="(max-width: 767px) 93vw, (max-width: 1366px) 90vw, 1168px" class="attachment-full size-full" alt="Comparação entre estudar sem direção e estudar com o Método Próximo Passo BB, com o planejamento visível na tela do notebook">
 				</div>
 				</div>
+				<div class="bb-hero-cta-wrap">
+					<a class="bb-hero-cta" href="#oferta">
+						<span class="bb-hero-cta-text">Quero começar minha preparação</span>
+						<span class="bb-hero-cta-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M413 222L435 245Q442 252 442 262Q442 272 435 279L241 473Q234 480 224 480Q214 480 207 473L13 279Q6 272 6 262Q6 252 13 245L35 222Q42 215 52 215.5Q62 216 69 223L184 343L184 56Q184 46 191 39Q198 32 208 32L240 32Q250 32 257 39Q264 46 264 56L264 343L379 223Q386 216 396 215.5Q406 215 413 222Z"/></svg></span>
+					</a>
+				</div>
 				</div>
 					</div>
 				</header>
 		<section class="bb-prova-social" aria-labelledby="bb-prova-social-title">
-			<div class="elementor-element elementor-element-c7ae53b elementor-widget__width-initial elementor-absolute seta-separacao-icon elementor-view-default elementor-widget elementor-widget-icon" data-id="c7ae53b" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="icon.default">
-				<div class="elementor-widget-container">
-					<div class="elementor-icon-wrapper">
-						<div class="elementor-icon">
-							<svg aria-hidden="true" focusable="false" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M413 222L435 245Q442 252 442 262Q442 272 435 279L241 473Q234 480 224 480Q214 480 207 473L13 279Q6 272 6 262Q6 252 13 245L35 222Q42 215 52 215.5Q62 216 69 223L184 343L184 56Q184 46 191 39Q198 32 208 32L240 32Q250 32 257 39Q264 46 264 56L264 343L379 223Q386 216 396 215.5Q406 215 413 222Z"/></svg>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="bb-section-inner">
 				<p class="bb-eyebrow">Quem já começou conta</p>
 				<h2 class="bb-section-title" id="bb-prova-social-title">Veja o que dizem os alunos que já começaram antes do edital:</h2>
@@ -4123,7 +4117,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				</div>
 					</div>
 				</section>
-		<div class="elementor-element elementor-element-3e2abf8 e-flex e-con-boxed e-con e-parent e-lazyloaded" data-id="3e2abf8" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+		<div id="oferta" class="elementor-element elementor-element-3e2abf8 e-flex e-con-boxed e-con e-parent e-lazyloaded" data-id="3e2abf8" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 		<div class="elementor-element elementor-element-740f9bd e-con-full e-flex e-con e-child" data-id="740f9bd" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-b41be9a elementor-widget__width-initial elementor-widget elementor-widget-image" data-id="b41be9a" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
@@ -4687,31 +4681,20 @@ body, html { width: 100%; overflow-x: hidden; }
 					document.addEventListener( event, lazyloadRunObserver );
 				} );
 			</script>
-			<script>
-  // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
-  const link = 'https://meubackredirect.com.br';
-
-  function setBackRedirect(url) {
-    let urlBackRedirect = url;
-    urlBackRedirect = urlBackRedirect =
-      urlBackRedirect.trim() +
-      (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
-      document.location.search.replace('?', '').toString();
-
-    history.pushState({}, '', location.href);
-    history.pushState({}, '', location.href);
-    history.pushState({}, '', location.href);
-
-    window.addEventListener('popstate', () => {
-      console.log('onpopstate', urlBackRedirect);
-      setTimeout(() => {
-        location.href = urlBackRedirect;
-      }, 1);
-    });
-  }
-
-  setBackRedirect(link);
-</script><script id="rocket-browser-checker-js-after">
+<script>
+  /* Rolagem ate a oferta sem jogar #ancora na URL nem criar entrada no historico,
+     para o Voltar sair da LP em vez de apenas desfazer o scroll. */
+  document.addEventListener('click', function (event) {
+    var trigger = event.target.closest && event.target.closest('a.bb-hero-cta');
+    if (!trigger) { return; }
+    var target = document.querySelector(trigger.getAttribute('href'));
+    if (!target) { return; }
+    event.preventDefault();
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  });
+</script>
+<script id="rocket-browser-checker-js-after">
 "use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
 //# sourceURL=rocket-browser-checker-js-after
 </script>
