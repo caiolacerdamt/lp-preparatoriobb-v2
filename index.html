@@ -3384,13 +3384,19 @@ body, html { width: 100%; overflow-x: hidden; }
 	.elementor-1619 [data-id="3e92f21"] [data-id="4103f0d"] { max-width: 670px; }
 	.elementor-1619 [data-id="3e92f21"] [data-id="692ae61"] strong { color: #0E3D2F; }
 	.elementor-1619 [data-id="243c5ed2"] details { scroll-margin-top: 20px; }
+	#oferta-precos { scroll-margin-top: 16px; }
 	.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 20px; margin: 10px 0; color: rgba(244,241,232,.8); font-size: 12px; }
 	.footer-disclaimer { max-width: 760px; margin: 10px auto 0; color: rgba(244,241,232,.7); font-size: 11px; line-height: 1.45; text-align: center; }
 
 	@media (max-width: 767px) {
 		.bb-preheadline { margin-bottom: 10px; font-size: 10px; letter-spacing: .09em; }
 		.bb-subheadline { margin: 12px auto 16px; padding: 0 8px; font-size: 15px; }
-		.elementor-1619 .elementor-element.elementor-element-2e23fbc { --min-height: 0px; --padding-bottom: 28px; }
+		.elementor-1619 .elementor-element.elementor-element-2e23fbc { --min-height: 100svh; --padding-bottom: 28px; }
+		/* A sobra de altura vira respiro entre logo, titulo, imagem e CTA em vez de um vao no topo. */
+		.elementor-1619 .elementor-element.elementor-element-2e23fbc > .e-con-inner { justify-content: flex-start; }
+		.elementor-1619 .elementor-element.elementor-element-9eb20d9 { flex: 1 1 auto; justify-content: flex-start; }
+		.elementor-1619 .elementor-element.elementor-element-f79f633.bb-hero-comparison { margin-top: auto !important; margin-bottom: auto !important; }
+		.bb-hero-cta-wrap { margin-top: 0 !important; }
 		.bb-hero-comparison img { max-height: none; width: 100% !important; }
 		.elementor-1619 [data-id="f79f633"].bb-hero-comparison { width: calc(100% - 8px) !important; margin-top: 14px !important; }
 		.bb-hero-comparison > .elementor-widget-container { border-radius: 0; }
@@ -3530,7 +3536,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				</div>
 				</div>
 				<div class="bb-hero-cta-wrap">
-					<a class="bb-hero-cta" href="#oferta">
+					<a class="bb-hero-cta" href="#oferta-precos">
 						<span class="bb-hero-cta-text">Quero começar minha preparação</span>
 						<span class="bb-hero-cta-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M413 222L435 245Q442 252 442 262Q442 272 435 279L241 473Q234 480 224 480Q214 480 207 473L13 279Q6 272 6 262Q6 252 13 245L35 222Q42 215 52 215.5Q62 216 69 223L184 343L184 56Q184 46 191 39Q198 32 208 32L240 32Q250 32 257 39Q264 46 264 56L264 343L379 223Q386 216 396 215.5Q406 215 413 222Z"/></svg></span>
 					</a>
@@ -4126,7 +4132,7 @@ body, html { width: 100%; overflow-x: hidden; }
 				</div>
 				</div>
 		<div class="elementor-element elementor-element-52a1964 e-con-full e-flex e-con e-child" data-id="52a1964" data-element_type="container" data-e-type="container">
-		<div class="elementor-element elementor-element-5027466 e-con-full enfim-card oferta-card e-flex e-con e-child" data-id="5027466" data-element_type="container" data-e-type="container">
+		<div id="oferta-precos" class="elementor-element elementor-element-5027466 e-con-full enfim-card oferta-card e-flex e-con e-child" data-id="5027466" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-17afafa elementor-widget__width-initial elementor-widget elementor-widget-image" data-id="17afafa" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
 				<div class="elementor-widget-container">
 															<img loading="lazy" decoding="async" width="1600" height="533" src="assets/images/logo-proximo-passo-nobg.webp" srcset="assets/images/logo-proximo-passo-nobg-250.webp 250w, assets/images/logo-proximo-passo-nobg-420.webp 420w, assets/images/logo-proximo-passo-nobg-640.webp 640w" sizes="(max-width: 767px) 220px, 260px" class="attachment-large size-large" alt="Método Próximo Passo BB">															</div>
