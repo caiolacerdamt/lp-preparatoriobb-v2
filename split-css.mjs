@@ -28,7 +28,7 @@ const page = await browser.newPage({ viewport: { width: 412, height: 823 } });
 await page.goto('http://127.0.0.1:8713/', { waitUntil: 'load' });
 await page.waitForTimeout(1500);
 
-const { critico, resto, ignorados } = await page.evaluate(({ sels, adiadas, poppins }) => {
+const { critico, resto, ignorados, soNoCritico } = await page.evaluate(({ sels, adiadas, poppins }) => {
   const raizes = sels.flatMap(s => [...document.querySelectorAll(s)]);
   const ehCritico = (el) => el === document.documentElement || el === document.body
     || raizes.some(r => r === el || r.contains(el));
@@ -42,8 +42,23 @@ const { critico, resto, ignorados } = await page.evaluate(({ sels, adiadas, popp
     return true;
   };
 
+  // Os fundos do Elementor passam por custom property: uma regra declara
+  // (--wpr-bg-X: url(...)) e outra consome (background-image: var(--wpr-bg-X)).
+  //
+  // O navegador resolve esse url() relativo contra a folha que CONSOME o var(), nao
+  // contra a que declara. Se as duas nao estiverem no mesmo arquivo, nenhum caminho
+  // funciona: com a consumidora no resto.css (/assets/css/), "assets/images/" vira
+  // /assets/css/assets/images/ e "../images/" resolvido pela consumidora inline vira
+  // /images/ -- os dois 404. Caminho absoluto resolveria no servidor mas quebra ao
+  // abrir o index.html do disco (/assets vira C:/assets).
+  //
+  // Por isso declaracao e consumo ficam SO no critico inline, onde a base e sempre a
+  // do documento e o caminho relativo original vale em qualquer contexto.
+  const declaraFundo = (r) => /--[\w-]+\s*:\s*url\(/.test(r.cssText)
+                           || /var\(\s*--wpr-bg-/.test(r.cssText);
+
   const crit = [], rest = [];
-  let ignorados = 0;
+  let ignorados = 0, soNoCritico = 0;
   for (const sh of document.styleSheets) {
     let regras; try { regras = sh.cssRules; } catch { continue; }
     // o bloco de content-visibility da Fase 1 continua inline, fora da separacao
@@ -54,19 +69,28 @@ const { critico, resto, ignorados } = await page.evaluate(({ sels, adiadas, popp
       // regras na ordem original, senao promover uma regra para o bloco critico a
       // adianta na cascata e inverte desempates entre seletores de mesma
       // especificidade (ex.: .enfim-card vs .e-con-full, que decidem por ordem).
-      if (r.type === CSSRule.STYLE_RULE) { if (bate(r.selectorText)) crit.push(r.cssText); rest.push(r.cssText); }
+      // A unica excecao sao as regras que declaram fundo por custom property.
+      if (r.type === CSSRule.STYLE_RULE) {
+        if (declaraFundo(r)) { crit.push(r.cssText); soNoCritico++; }
+        else { if (bate(r.selectorText)) crit.push(r.cssText); rest.push(r.cssText); }
+      }
       else if (r.type === CSSRule.MEDIA_RULE) {
-        const sub = [];
-        for (const s of r.cssRules) if (s.type === CSSRule.STYLE_RULE && bate(s.selectorText)) sub.push(s.cssText);
+        const sub = [], restoSub = [];
+        for (const s of r.cssRules) {
+          if (s.type !== CSSRule.STYLE_RULE) { restoSub.push(s.cssText); continue; }
+          if (declaraFundo(s)) { sub.push(s.cssText); soNoCritico++; continue; }
+          if (bate(s.selectorText)) sub.push(s.cssText);
+          restoSub.push(s.cssText);
+        }
         if (sub.length) crit.push('@media ' + r.conditionText + '{' + sub.join('') + '}');
-        rest.push(r.cssText);
+        if (restoSub.length) rest.push('@media ' + r.conditionText + '{' + restoSub.join('') + '}');
       } else if (r.type === CSSRule.FONT_FACE_RULE) {
         if (fonteEhCritica(r)) crit.push(r.cssText);
         rest.push(r.cssText);
       } else { crit.push(r.cssText); rest.push(r.cssText); }
     }
   }
-  return { critico: crit.join('\n'), resto: rest.join('\n'), ignorados };
+  return { critico: crit.join('\n'), resto: rest.join('\n'), ignorados, soNoCritico };
 }, { sels: CRITICOS, adiadas: FONTES_ADIADAS, poppins: POPPINS_CRITICOS });
 await browser.close();
 
@@ -76,17 +100,17 @@ const min = (css) => transform({ filename: 'x.css', code: Buffer.from(css), mini
 const criticoMin = min(critico);
 const restoMin = min(resto);
 
-// Os caminhos do resto.css viram absolutos a partir da raiz do site.
+// Todo url() que sobrou no resto.css e url() comum, resolvido pelo navegador contra
+// a URL da FOLHA (/assets/css/) -- por isso ../images/ e ../fonts/.
 //
-// Nao da para usar ../images/ e ../fonts/ (relativo ao arquivo CSS): boa parte dos
-// fundos do Elementor chega por custom property (--wpr-bg-*: url(...)), e um url()
-// relativo dentro de custom property e resolvido contra a URL do *documento*, nao a
-// da folha de estilo. Com ../images/ o navegador pediria /images/... e tomava 404.
-// /assets/... e resolvido igual nos dois casos. A LP e servida na raiz do dominio e
-// nao ha <base> na pagina.
+// Os url() de custom property nao chegam aqui: ficaram so no bloco critico inline
+// (veja `declaraFundo` acima). Ali a base e a do documento e o caminho relativo
+// original vale. Nao da para deixa-los no resto.css em nenhuma forma: /assets/...
+// quebra ao abrir o arquivo do disco (vira C:/assets), ../images/ e assets/images/
+// resolvem contra bases diferentes conforme o consumidor e produzem 404.
 const restoReescrito = restoMin
-  .replaceAll('assets/images/', '/assets/images/')
-  .replaceAll('assets/fonts/',  '/assets/fonts/');
+  .replaceAll('assets/images/', '../images/')
+  .replaceAll('assets/fonts/',  '../fonts/');
 
 fs.mkdirSync('.perf', { recursive: true });
 fs.writeFileSync('.perf/critico.css', criticoMin);
@@ -96,9 +120,23 @@ fs.writeFileSync('assets/css/resto.css', restoReescrito);
 
 const kb = (s) => (Buffer.byteLength(s) / 1024).toFixed(1) + ' KB';
 console.log('critico', kb(criticoMin), '| resto', kb(restoMin), '| resto reescrito', kb(restoReescrito));
-const sobrando = restoReescrito.match(/(^|[^/])assets\/(images|fonts)\//g);
-if (sobrando) throw new Error(`caminhos nao reescritos no resto.css: ${sobrando.length}`);
+console.log(`regras de fundo por custom property mantidas so no critico: ${soNoCritico}`);
+
+// nenhum url() de custom property pode ter sobrado no resto.css
+const cpNoResto = [...restoReescrito.matchAll(/--[\w-]+\s*:\s*url\(([^)]*)\)/g)];
+if (cpNoResto.length) throw new Error(`url() de custom property vazou para o resto.css: ${cpNoResto.map(m => m[1]).join(', ')}`);
+
+// e todo url() restante tem de ser relativo a folha
 const urls = [...restoReescrito.matchAll(/url\(([^)]*)\)/g)].map(m => m[1].replace(/["']/g, ''));
-const ruins = urls.filter(u => !u.startsWith('/assets/') && !u.startsWith('data:'));
-if (ruins.length) throw new Error(`url() fora de /assets/: ${ruins.join(', ')}`);
-console.log(`caminhos: ${urls.length} url(), todos absolutos em /assets/`);
+const ruins = urls.filter(u => !u.startsWith('../') && !u.startsWith('data:'));
+if (ruins.length) throw new Error(`url() nao relativo a folha no resto.css:\n  ${ruins.join('\n  ')}`);
+
+// e as declaracoes de fundo tem de estar no critico, com o caminho do documento
+const cpNoCritico = [...criticoMin.matchAll(/--[\w-]+:url\(([^)]*)\)/g)].map(m => m[1].replace(/["']/g, ''));
+if (!cpNoCritico.length) throw new Error('nenhuma declaracao de fundo chegou ao critico');
+// nenhuma regra pode continuar consumindo var(--wpr-bg-*) do resto.css: a declaracao
+// dela nao esta la, entao o fundo simplesmente nao apareceria
+if (/var\(\s*--wpr-bg-/.test(restoReescrito)) throw new Error('sobrou var(--wpr-bg-*) no resto.css sem a declaracao correspondente');
+const cpRuins = cpNoCritico.filter(u => !u.startsWith('assets/'));
+if (cpRuins.length) throw new Error(`declaracao de fundo com caminho errado: ${cpRuins.join(', ')}`);
+console.log(`caminhos ok: ${urls.length} url() relativos a folha no resto.css, ${cpNoCritico.length} fundos relativos ao documento no critico`);
