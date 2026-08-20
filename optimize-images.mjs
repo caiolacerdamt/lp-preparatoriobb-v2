@@ -56,7 +56,7 @@ const plano = [
   { arq: "capa-apostila-v2-nobg.webp", alvo: 290 },
   { arq: "comunidade-nobg.webp", alvo: 320 },
   { arq: "secao-para-voce-bg.webp", alvo: 1600, mobile: 800 },
-  { arq: "banner-fundo-hero.webp", alvo: 1600 },
+  { arq: "banner-fundo-hero.webp", alvo: 1600, mobile: 640 },
 ];
 
 // Guarda os originais uma unica vez, para o script poder rodar de novo sem

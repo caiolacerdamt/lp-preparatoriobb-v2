@@ -43,3 +43,9 @@ Thumbs.db
 
 # Servidor estatico local usado so para testar o rastreamento
 /.claude/
+
+# Harness local de performance (nao vai pro deploy)
+/.perf/
+/perf-server.mjs
+/perf-measure.mjs
+/split-css.mjs
