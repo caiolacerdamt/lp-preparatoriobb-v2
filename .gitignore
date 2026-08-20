@@ -48,4 +48,3 @@ Thumbs.db
 /.perf/
 /perf-server.mjs
 /perf-measure.mjs
-/split-css.mjs
