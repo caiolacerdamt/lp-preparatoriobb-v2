@@ -25,16 +25,17 @@ const seco = process.argv.includes("--dry");
 // variantes = larguras adicionais nomeadas; sem alvo, preserva o principal
 const plano = [
   { arq: "hero-comparativo-proximo-passo-v3.webp", alvo: 1671, mobile: 760 },
-  { arq: "ruminacoes-novas-v2.webp", alvo: 1448, mobile: 760 },
+  { arq: "ruminacoes-novas-v2.webp", alvo: 1448, mobile: 760, avif: true },
   { arq: "combo-nobg.webp", alvo: 960, mobile: 700 },
   { arq: "autoridade-v4-nobg.webp", alvo: 900, mobile: 700 },
   { arq: "feedback1.webp", alvo: 760 },
-  { arq: "feedback2.webp", alvo: 760 },
+  { arq: "feedback2.webp", alvo: 760, avif: true },
   { arq: "feedback5.webp", alvo: 700 },
   { arq: "feedback6.webp", alvo: 700 },
   { arq: "feedback8.webp", alvo: 700 },
   {
     arq: "feedback-novo.webp",
+    avif: true,
     variantes: [
       { sufixo: "-480", largura: 480 },
       { sufixo: "-800", largura: 800 },
@@ -52,9 +53,9 @@ const plano = [
   },
   { arq: "sistema-estudos-nobg.webp", alvo: 500 },
   { arq: "mais-2000-questoes.webp", alvo: 300 },
-  { arq: "decorex-nobg.webp", alvo: 360 },
+  { arq: "decorex-nobg.webp", alvo: 360, avif: true },
   { arq: "capa-apostila-v2-nobg.webp", alvo: 290 },
-  { arq: "comunidade-nobg.webp", alvo: 320 },
+  { arq: "comunidade-nobg.webp", alvo: 320, avif: true },
   { arq: "secao-para-voce-bg.webp", alvo: 1600, mobile: 800 },
   { arq: "banner-fundo-hero.webp", alvo: 1600, mobile: 640 },
 ];
@@ -72,10 +73,11 @@ try {
 }
 
 const opcoesWebp = { quality: 78, effort: 6, smartSubsample: true };
+const opcoesAvif = { quality: 55, effort: 6, chromaSubsampling: "4:2:0" };
 let antes = 0;
 let depois = 0;
 
-for (const { arq, alvo, mobile, variantes = [] } of plano) {
+for (const { arq, alvo, mobile, variantes = [], avif = false } of plano) {
   const src = path.join(origem, arq);
   let buf;
   try {
@@ -118,6 +120,20 @@ for (const { arq, alvo, mobile, variantes = [] } of plano) {
     depois += out.length;
     if (!seco) await fs.writeFile(path.join(dir, nome), out);
     linhas.push(`${String(largura).padStart(4)}w ${(out.length / 1024).toFixed(1).padStart(6)} KB  ${nome}`);
+
+    // Variante AVIF das imagens grandes abaixo da dobra. Entra como <source> dentro
+    // de <picture>, com o WebP logo atras -- quem nao decodifica AVIF cai no WebP.
+    if (avif) {
+      const av = await sharp(buf)
+        .resize({ width: largura, withoutEnlargement: true })
+        .avif(opcoesAvif)
+        .toBuffer();
+      const nomeAvif = nome.replace(/\.webp$/, ".avif");
+      depois += av.length;
+      if (!seco) await fs.writeFile(path.join(dir, nomeAvif), av);
+      const ganho = Math.round(100 - (av.length / out.length) * 100);
+      linhas.push(`${String(largura).padStart(4)}w ${(av.length / 1024).toFixed(1).padStart(6)} KB  ${nomeAvif} (${ganho >= 0 ? "-" : "+"}${Math.abs(ganho)}%)`);
+    }
   }
 
   console.log(
